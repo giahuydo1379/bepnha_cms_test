@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-
+                <div class="col-sm-6">
                 <table id="demo-custom-toolbar" class="demo-add-niftycheck" data-toggle="table"
                        data-locale="vi-VN"
                        data-toolbar="#table-toolbar"
@@ -104,6 +104,49 @@
                     </thead>
 
                 </table>
+                </div>
+
+                <div class="col-sm-6">
+                    <table id="demo-custom-toolbar" class="demo-add-niftycheck" data-toggle="table"
+                           data-locale="vi-VN"
+                           data-toolbar="#table-toolbar"
+                           data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data-list") !!}"
+                           data-search="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-columns="true"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-page-size="{{ PAGE_LIST_COUNT }}"
+                           data-query-params="queryParams"
+                           data-cookie="true"
+                           data-cookie-id-table="inside-video-show-all"
+                           data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
+                    >
+                        <thead>
+                        <tr>
+                            <th data-field="check_id" data-checkbox="true">ID</th>
+
+
+                            <th data-field="title" data-sortable="true">Tên Công thức nấu ăn</th>
+
+                            <th data-field="name" data-sortable="true">Tên Video</th>
+
+                            <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
+
+                            {{--
+                            <th data-field="is_featured" data-align="center" data-sortable="true" data-formatter="formatFeatured">
+                                Nổi bật
+                            </th>
+                            --}}
+
+                        </tr>
+                        </thead>
+
+                    </table>
+                </div>
+
+
             </div>
         </div>
     </div>
