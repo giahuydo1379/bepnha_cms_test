@@ -12,11 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dumping database structure for lar_bepnha_data
-CREATE DATABASE IF NOT EXISTS `lar_bepnha_data` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `lar_bepnha_data`;
+-- Dumping database structure for lar_bepnha_data_2
+CREATE DATABASE IF NOT EXISTS `lar_bepnha_data_2` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `lar_bepnha_data_2`;
 
--- Dumping structure for table lar_bepnha_data.categories
+-- Dumping structure for table lar_bepnha_data_2.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` int(11) unsigned NOT NULL DEFAULT '0',
@@ -29,45 +29,43 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `date_modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `disable` tinyint(4) DEFAULT '0',
   `style` int(11) DEFAULT NULL,
+  `test` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Bảng danh mục sản phẩm';
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Bảng danh mục sản phẩm';
 
--- Dumping data for table lar_bepnha_data.categories: ~27 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.categories: ~26 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` (`id`, `type`, `name`, `icon_location`, `parent_cate`, `created_by`, `modified_by`, `date_created`, `date_modified`, `disable`, `style`) VALUES
-	(1, 2, 'Các món về mì', 'categories/2018/05/16/1526455008-mi.jpg', 0, 1, 1, '2018-04-05 09:06:01', '2018-05-16 14:16:52', 0, NULL),
-	(2, 2, 'Mì ý', 'categories/2018/04/05/1522894010-mon-ngon-tu-thit-ba-chi-20.png', 0, 1, 1, '2018-04-05 09:06:51', '2018-05-14 11:03:04', 1, NULL),
-	(3, 1, 'Ẩm thực đường phố ', 'categories/2018/05/16/1526455125-am-thuc-duong-pho.jpg', 0, 1, 1, '2018-05-14 10:53:49', '2018-05-16 14:18:48', 0, NULL),
-	(4, 2, 'Các món súp', 'categories/2018/05/16/1526455246-sup.jpg', 0, 1, 1, '2018-05-14 11:02:40', '2018-05-16 14:20:53', 0, NULL),
-	(5, 1, 'Món Âu', 'categories/2018/05/16/1526455298-mon-au.jpg', 0, 1, 1, '2018-05-14 11:03:12', '2018-05-16 14:21:41', 0, NULL),
-	(6, 1, 'Món Á ', 'categories/2018/05/16/1526455376-mon-a.jpg', 0, 1, 1, '2018-05-14 11:03:24', '2018-05-16 14:23:00', 0, NULL),
-	(7, 2, 'Món ăn truyền thống', 'categories/2018/05/16/1526455433-mon-an-truyen-thong.jpg', 0, 1, 1, '2018-05-14 11:06:01', '2018-05-16 14:23:56', 0, NULL),
-	(8, 2, 'Các món Salad', 'categories/2018/05/16/1526455520-SALAD.jpg', 0, 1, 1, '2018-05-14 11:41:26', '2018-05-16 14:25:26', 0, NULL),
-	(9, 2, 'Món ăn Việt Nam', 'categories/2018/05/16/1526455595-mon-viet.jpg', 0, 1, 1, '2018-05-14 12:10:34', '2018-05-16 14:26:42', 0, NULL),
-	(10, 2, 'Các món Hải Sản', 'categories/2018/05/16/1526455669-hai-san.jpg', 0, 1, 1, '2018-05-14 15:21:31', '2018-05-16 14:27:57', 0, NULL),
-	(11, 2, 'Các món từ thịt Heo', 'categories/2018/05/16/1526455752-heo.jpg', 0, 1, 1, '2018-05-14 15:46:33', '2018-05-16 14:29:15', 0, NULL),
-	(12, 2, 'Các món từ thịt Bò', 'categories/2018/05/16/1526455819-bo.jpg', 0, 1, 1, '2018-05-14 15:46:48', '2018-05-16 14:30:27', 0, NULL),
-	(13, 2, 'Các món từ thịt Gà', 'categories/2018/05/16/1526455931-ga.jpg', 0, 1, 1, '2018-05-14 15:46:56', '2018-05-16 14:32:17', 0, NULL),
-	(14, 2, 'Các món Tráng Miệng', 'categories/2018/05/16/1526456011-mon-trang-mieng.jpg', 0, 1, 1, '2018-05-14 15:47:11', '2018-05-16 14:33:34', 0, NULL),
-	(15, 2, 'Các món Bánh Ngọt', 'categories/2018/05/16/1526456098-Banh-ngot.jpg', 0, 1, 1, '2018-05-14 15:47:42', '2018-05-16 14:35:19', 0, NULL),
-	(16, 2, 'Review Food', 'categories/2018/05/16/1526464123-Review-food.jpg', 0, 1, 1, '2018-05-14 15:47:56', '2018-05-16 16:49:10', 0, NULL),
-	(17, 1, 'Gymer vào Bếp', 'categories/2018/05/16/1526456405-gymer-vao-bep.jpg', 0, 1, 1, '2018-05-14 15:58:05', '2018-05-16 14:40:12', 0, NULL),
-	(18, 2, 'Đồ ăn cho người tập Gym', 'categories/2018/05/16/1526464039-do-an-cho-nguoi-tap-Gym.jpg', 0, 1, 1, '2018-05-14 15:58:17', '2018-05-16 16:48:14', 0, NULL),
-	(19, 2, 'TEST 100', 'categories/2018/05/15/1526351978-qnn.jpg', 0, 1, 1, '2018-05-15 09:39:42', '2018-05-15 09:50:42', 1, NULL),
-	(20, 0, 'Nấu ăn cùng người hướng dẫn', NULL, 0, 1, NULL, '2018-05-28 15:16:09', '2018-05-28 15:16:10', 0, NULL),
-	(21, 1, 'Các món chay', 'categories/2018/06/05/1528167139-mon-chay.jpg', 0, 1, 1, '2018-06-05 09:42:54', '2018-06-05 09:52:25', 0, NULL),
-	(22, 2, 'Món ăn dành cho người ăn chay', 'categories/2018/06/05/1528167161-mon-chay.jpg', 0, 1, 1, '2018-06-05 09:43:17', '2018-06-05 09:52:43', 0, NULL),
-	(25, 2, 'thulan1', 'categories/2018/09/13/1536808895-download1.png', 0, 1, 1, '2018-09-12 11:22:27', '2018-09-13 10:21:39', 0, 2),
-	(27, 2, 'thulan2', 'categories/2018/09/13/1536807006-download1.png', 0, 1, 1, '2018-09-12 13:35:00', '2018-09-13 10:18:53', 0, 2),
-	(28, 0, 'thulan4', NULL, 0, 1, NULL, '2018-09-13 10:21:56', '2018-09-13 10:21:56', 0, 0),
-	(29, 1, 'thulan5', 'categories/2018/09/13/1536823189-download2.jpg', 0, 1, 1, '2018-09-13 14:15:32', '2018-09-13 14:19:52', 0, 1),
-	(30, 1, 'thulan6', NULL, 0, 1, NULL, '2018-09-13 14:40:42', '2018-09-13 14:40:42', 0, 1),
-	(31, 1, 'thulan6', NULL, 0, 1, NULL, '2018-09-13 14:43:06', '2018-09-13 14:43:06', 0, 1),
-	(32, 1, 'thulan6', NULL, 0, 1, NULL, '2018-09-13 14:43:27', '2018-09-13 14:43:27', 0, 1);
+INSERT INTO `categories` (`id`, `type`, `name`, `icon_location`, `parent_cate`, `created_by`, `modified_by`, `date_created`, `date_modified`, `disable`, `style`, `test`) VALUES
+	(1, 2, 'Các món về mì', 'categories/2018/05/16/1526455008-mi.jpg', 0, 1, 1, '2018-04-05 09:06:01', '2018-09-21 15:45:39', 0, 1, 1),
+	(2, 2, 'Mì ý', 'categories/2018/04/05/1522894010-mon-ngon-tu-thit-ba-chi-20.png', 0, 1, 1, '2018-04-05 09:06:51', '2018-09-14 09:45:35', 1, 1, 1),
+	(3, 1, 'Ẩm thực đường phố ', 'categories/2018/05/16/1526455125-am-thuc-duong-pho.jpg', 0, 1, 1, '2018-05-14 10:53:49', '2018-09-14 09:45:36', 0, 1, 1),
+	(4, 2, 'Các món súp', 'categories/2018/05/16/1526455246-sup.jpg', 0, 1, 1, '2018-05-14 11:02:40', '2018-09-14 09:45:37', 0, 1, 1),
+	(5, 1, 'Món Âu', 'categories/2018/05/16/1526455298-mon-au.jpg', 0, 1, 1, '2018-05-14 11:03:12', '2018-09-14 09:45:38', 0, 1, 1),
+	(6, 1, 'Món Á ', 'categories/2018/05/16/1526455376-mon-a.jpg', 0, 1, 1, '2018-05-14 11:03:24', '2018-09-14 09:45:39', 0, 1, 1),
+	(7, 2, 'Món ăn truyền thống', 'categories/2018/05/16/1526455433-mon-an-truyen-thong.jpg', 0, 1, 1, '2018-05-14 11:06:01', '2018-09-14 09:45:40', 0, 1, 1),
+	(8, 2, 'Các món Salad', 'categories/2018/05/16/1526455520-SALAD.jpg', 0, 1, 1, '2018-05-14 11:41:26', '2018-09-14 09:45:41', 0, 1, 1),
+	(9, 2, 'Món ăn Việt Nam', 'categories/2018/05/16/1526455595-mon-viet.jpg', 0, 1, 1, '2018-05-14 12:10:34', '2018-09-14 09:45:41', 0, 1, 1),
+	(10, 2, 'Các món Hải Sản', 'categories/2018/05/16/1526455669-hai-san.jpg', 0, 1, 1, '2018-05-14 15:21:31', '2018-09-14 09:45:42', 0, 1, 1),
+	(11, 2, 'Các món từ thịt Heo', 'categories/2018/05/16/1526455752-heo.jpg', 0, 1, 1, '2018-05-14 15:46:33', '2018-09-14 09:45:43', 0, 1, 1),
+	(12, 2, 'Các món từ thịt Bò', 'categories/2018/05/16/1526455819-bo.jpg', 0, 1, 1, '2018-05-14 15:46:48', '2018-09-14 09:45:44', 0, 1, 1),
+	(13, 2, 'Các món từ thịt Gà', 'categories/2018/05/16/1526455931-ga.jpg', 0, 1, 1, '2018-05-14 15:46:56', '2018-09-14 09:45:46', 0, 1, 1),
+	(14, 2, 'Các món Tráng Miệng', 'categories/2018/05/16/1526456011-mon-trang-mieng.jpg', 0, 1, 1, '2018-05-14 15:47:11', '2018-09-14 09:45:47', 0, 1, 1),
+	(15, 2, 'Các món Bánh Ngọt', 'categories/2018/05/16/1526456098-Banh-ngot.jpg', 0, 1, 1, '2018-05-14 15:47:42', '2018-09-14 09:45:48', 0, 1, 1),
+	(16, 2, 'Review Food', 'categories/2018/05/16/1526464123-Review-food.jpg', 0, 1, 1, '2018-05-14 15:47:56', '2018-09-14 09:45:49', 0, 1, 1),
+	(17, 1, 'Gymer vào Bếp', 'categories/2018/05/16/1526456405-gymer-vao-bep.jpg', 0, 1, 1, '2018-05-14 15:58:05', '2018-09-14 09:45:50', 0, 1, 1),
+	(18, 2, 'Đồ ăn cho người tập Gym', 'categories/2018/05/16/1526464039-do-an-cho-nguoi-tap-Gym.jpg', 0, 1, 1, '2018-05-14 15:58:17', '2018-09-14 09:45:51', 0, 1, 1),
+	(19, 2, 'TEST 100', 'categories/2018/05/15/1526351978-qnn.jpg', 0, 1, 1, '2018-05-15 09:39:42', '2018-09-14 09:45:52', 1, 1, 1),
+	(20, 0, 'Nấu ăn cùng người hướng dẫn', NULL, 0, 1, NULL, '2018-05-28 15:16:09', '2018-09-14 09:45:53', 0, 1, 1),
+	(21, 1, 'Các món chay', 'categories/2018/06/05/1528167139-mon-chay.jpg', 0, 1, 1, '2018-06-05 09:42:54', '2018-09-14 09:45:54', 0, 1, 1),
+	(22, 2, 'Món ăn dành cho người ăn chay', 'categories/2018/06/05/1528167161-mon-chay.jpg', 0, 1, 1, '2018-06-05 09:43:17', '2018-09-14 09:46:31', 0, 1, 1),
+	(25, 2, 'thulan1', 'categories/2018/09/13/1536808895-download1.png', 0, 1, 1, '2018-09-12 11:22:27', '2018-09-24 15:29:07', 0, 2, 1),
+	(33, 1, 'thulan2', 'categories/2018/09/14/1536899000-download1.png', 0, 1, 1, '2018-09-14 10:45:20', '2018-09-17 09:29:01', 0, 2, 1),
+	(34, 1, 'thulan3', NULL, 0, 1, NULL, '2018-09-14 11:33:52', '2018-09-14 11:33:52', 0, 2, 1),
+	(35, 1, 'a', NULL, 0, 1, 1, '2018-09-25 17:16:59', '2018-09-25 17:29:35', 0, 2, 1);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.document
-CREATE TABLE IF NOT EXISTS `document` (
+-- Dumping structure for table lar_bepnha_data_2.documents
+CREATE TABLE IF NOT EXISTS `documents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(250) CHARACTER SET utf8 NOT NULL,
   `content` longtext CHARACTER SET utf8 NOT NULL,
@@ -77,30 +75,45 @@ CREATE TABLE IF NOT EXISTS `document` (
   `level` text CHARACTER SET utf8,
   `pcategory_id` int(10) unsigned NOT NULL,
   `category_id` int(11) unsigned NOT NULL,
-  `is_home` tinyint(4) NOT NULL DEFAULT '0',
+  `is_home` tinyint(1) NOT NULL DEFAULT '0',
   `date_created` datetime DEFAULT NULL,
   `date_modified` datetime DEFAULT NULL,
+  `view_count` int(11) NOT NULL DEFAULT '0',
+  `ordering` int(11) NOT NULL DEFAULT '0',
+  `is_featured` tinyint(4) NOT NULL DEFAULT '0',
+  `is_new` tinyint(4) NOT NULL DEFAULT '0',
+  `is_for_you` tinyint(4) NOT NULL DEFAULT '0',
+  `is_like` tinyint(4) DEFAULT '0',
   `created_by` int(11) DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
   `disable` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table lar_bepnha_data.document: ~0 rows (approximately)
-/*!40000 ALTER TABLE `document` DISABLE KEYS */;
-/*!40000 ALTER TABLE `document` ENABLE KEYS */;
+-- Dumping data for table lar_bepnha_data_2.documents: ~5 rows (approximately)
+/*!40000 ALTER TABLE `documents` DISABLE KEYS */;
+INSERT INTO `documents` (`id`, `title`, `content`, `image_location`, `chef`, `time_to_done`, `level`, `pcategory_id`, `category_id`, `is_home`, `date_created`, `date_modified`, `view_count`, `ordering`, `is_featured`, `is_new`, `is_for_you`, `is_like`, `created_by`, `modified_by`, `disable`) VALUES
+	(4, 'tôi là huy1', '<p>aaaa</p>\r\n', 'documents/2018/09/17/1537151362-download1.png', 'Đầu bếp', '5:00', '', 33, 25, 1, '2018-09-17 09:29:33', '2018-09-20 08:51:09', 7, 0, 0, 0, 0, 0, 1, 1, 1),
+	(5, 'tôi là huy2', '<p>aaa<img alt="" src="/upload/images/download2.jpg" style="height:90px; width:90px" /></p>\r\n', 'documents/2018/09/17/1537151396-download2.jpg', 'Đầu bếp', '5:00', '', 34, 25, 0, '2018-09-17 09:30:06', '2018-09-17 10:23:43', 11, 0, 0, 0, 0, 0, 1, 1, 0),
+	(6, 'thu lan 4', '<p><img alt="" src="/upload/images/download2.jpg" style="height:90px; width:90px" /><img alt="" src="/upload/images/face.PNG" style="height:785px; width:960px" /></p>\r\n', 'documents/2018/09/17/1537154938-face.PNG', 'Đầu bếp', '5:00', '', 33, 25, 0, '2018-09-17 10:29:00', '2018-09-17 10:35:34', 4, 0, 0, 0, 0, 0, 1, 1, 1),
+	(7, 'thulan5', '<p><img alt="" src="http://static.bepnha.local/download2.jpg" style="height:90px; width:90px" />a</p>\r\n', 'documents/2018/09/17/1537174728-download1.png', 'Đầu bếp', '5:00', '', 34, 25, 1, '2018-09-17 15:59:00', '2018-09-17 16:04:09', 0, 0, 0, 0, 0, 0, 1, 1, 0),
+	(8, '<body>', '<p>aaa</p>\r\n', 'documents/2018/09/24/1537777760-maxresdefault.jpg', '', '23:12', '1', 33, 25, 0, '2018-09-24 15:29:55', '2018-09-24 15:33:03', 0, 0, 0, 0, 0, 0, 1, 1, 0);
+/*!40000 ALTER TABLE `documents` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.login_users
+-- Dumping structure for table lar_bepnha_data_2.login_users
 CREATE TABLE IF NOT EXISTS `login_users` (
   `uuid` varchar(16) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Bảng danh mục sản phẩm';
 
--- Dumping data for table lar_bepnha_data.login_users: ~395 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.login_users: ~398 rows (approximately)
 /*!40000 ALTER TABLE `login_users` DISABLE KEYS */;
 INSERT INTO `login_users` (`uuid`, `name`) VALUES
+	('102667f6846', '0'),
 	('102667f6846f6d91', '0'),
+	('11', '0'),
+	('111111', '0'),
 	('11770778728821e1', '0'),
 	('11c2fa2772206ee5', '0'),
 	('11f83cfcae92630d', '0'),
@@ -497,7 +510,35 @@ INSERT INTO `login_users` (`uuid`, `name`) VALUES
 	('ffa1e2af905206bf', '0');
 /*!40000 ALTER TABLE `login_users` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.notebook
+-- Dumping structure for table lar_bepnha_data_2.log_vid_doc
+CREATE TABLE IF NOT EXISTS `log_vid_doc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vid_doc_id` int(11) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
+  `type` int(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table lar_bepnha_data_2.log_vid_doc: ~5 rows (approximately)
+/*!40000 ALTER TABLE `log_vid_doc` DISABLE KEYS */;
+INSERT INTO `log_vid_doc` (`id`, `vid_doc_id`, `date`, `type`) VALUES
+	(1, 4, '2018-09-27 00:00:00', 2),
+	(2, 5, '2018-09-25 00:00:00', 2),
+	(3, 5, '2018-09-25 00:00:00', 2),
+	(4, 5, '2018-09-26 00:00:00', 2),
+	(5, 5, '2018-09-26 00:00:00', 2),
+	(6, 6, '2018-09-26 00:00:00', 2),
+	(7, 1, '2018-09-26 00:00:00', 1),
+	(8, 5, '2018-09-26 00:00:00', 2),
+	(9, 4, '2018-09-26 00:00:00', 2),
+	(10, 4, '2018-09-26 00:00:00', 2),
+	(11, 6, '2018-09-26 00:00:00', 2),
+	(13, 4, '2018-09-26 00:00:00', 2),
+	(14, 5, '2018-09-26 00:00:00', 2),
+	(15, 5, '2018-09-26 00:00:00', 2);
+/*!40000 ALTER TABLE `log_vid_doc` ENABLE KEYS */;
+
+-- Dumping structure for table lar_bepnha_data_2.notebook
 CREATE TABLE IF NOT EXISTS `notebook` (
   `user_id` varchar(16) DEFAULT NULL,
   `video_id` int(11) unsigned NOT NULL,
@@ -505,12 +546,10 @@ CREATE TABLE IF NOT EXISTS `notebook` (
   UNIQUE KEY `unique` (`user_id`,`video_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.notebook: ~1,092 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.notebook: ~1,090 rows (approximately)
 /*!40000 ALTER TABLE `notebook` DISABLE KEYS */;
 INSERT INTO `notebook` (`user_id`, `video_id`, `date_created`) VALUES
-	('dea13460ec39f15c', 1, NULL),
 	('dea13460ec39f15c', 2, NULL),
-	('dea13460ec39f15c', 3, NULL),
 	('53c5c44f08c2f96d', 2, NULL),
 	('53c5c44f08c2f96d', 1, NULL),
 	('539150cf880b61d8', 1, NULL),
@@ -519,7 +558,6 @@ INSERT INTO `notebook` (`user_id`, `video_id`, `date_created`) VALUES
 	('dea13460ec39f15c', 13, NULL),
 	('dea13460ec39f15c', 9, NULL),
 	('dea13460ec39f15c', 12, NULL),
-	('dea13460ec39f15c', 8, NULL),
 	('7e6fd64ed2018180', 12, NULL),
 	('dea13460ec39f15c', 5, NULL),
 	('dea13460ec39f15c', 6, NULL),
@@ -1599,10 +1637,24 @@ INSERT INTO `notebook` (`user_id`, `video_id`, `date_created`) VALUES
 	('e51869c5f74aadda', 107, NULL),
 	('e51869c5f74aadda', 95, NULL),
 	('8db8533177f43841', 107, NULL),
-	('54ac79bbbd68f06f', 107, NULL);
+	('54ac79bbbd68f06f', 107, NULL),
+	('111111', 2, NULL);
 /*!40000 ALTER TABLE `notebook` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.recipes
+-- Dumping structure for table lar_bepnha_data_2.notebook_document
+CREATE TABLE IF NOT EXISTS `notebook_document` (
+  `user_id` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
+  `document_id` int(11) unsigned NOT NULL,
+  `date_created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table lar_bepnha_data_2.notebook_document: ~0 rows (approximately)
+/*!40000 ALTER TABLE `notebook_document` DISABLE KEYS */;
+INSERT INTO `notebook_document` (`user_id`, `document_id`, `date_created`) VALUES
+	('11', 4, NULL);
+/*!40000 ALTER TABLE `notebook_document` ENABLE KEYS */;
+
+-- Dumping structure for table lar_bepnha_data_2.recipes
 CREATE TABLE IF NOT EXISTS `recipes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `video_id` varchar(250) NOT NULL,
@@ -1615,13 +1667,13 @@ CREATE TABLE IF NOT EXISTS `recipes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Bảng danh mục sản phẩm';
 
--- Dumping data for table lar_bepnha_data.recipes: ~0 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.recipes: ~0 rows (approximately)
 /*!40000 ALTER TABLE `recipes` DISABLE KEYS */;
 INSERT INTO `recipes` (`id`, `video_id`, `serial_number`, `created_by`, `modified_by`, `date_created`, `date_modified`, `disable`) VALUES
 	(1, '', NULL, 1, 0, '2018-09-12 09:53:56', '2018-09-12 09:53:56', 0);
 /*!40000 ALTER TABLE `recipes` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.staff
+-- Dumping structure for table lar_bepnha_data_2.staff
 CREATE TABLE IF NOT EXISTS `staff` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(250) DEFAULT NULL,
@@ -1635,15 +1687,20 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `disable` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.staff: ~0 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.staff: ~6 rows (approximately)
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
 INSERT INTO `staff` (`id`, `email`, `password`, `remember_token`, `fullname`, `phone`, `group`, `date_created`, `date_modified`, `disable`) VALUES
-	(1, 'admin@gmail.com', '$2y$10$du4MvTsmV6RVezWRdgkxEuvKmgb.W1pPhXXY2IwIUAnM3.HhPDiGi', 'XeGq7HpcZBEVZnoyyMchSS6fxLLxULmhXLYU60WDfJvMZVmNw06KmzvFxaE7', 'Super Admin', '0979783324', 1, '0000-00-00 00:00:00', '2018-09-12 15:31:36', 0);
+	(1, 'admin@gmail.com', '$2y$10$du4MvTsmV6RVezWRdgkxEuvKmgb.W1pPhXXY2IwIUAnM3.HhPDiGi', 'xQBZpm9JqJHuMF612qrVbWi7lrpgSdTGF55JoGh4ezQ6aikxkYpeQStSvGn8', 'Super Admin', '0979783324', 1, '0000-00-00 00:00:00', '2018-09-25 14:53:25', 0),
+	(2, 'huy4@gmail.com', '$2y$10$4KqNGPyoxNPMWazDulVcXOjRR6lW7u98ka.YjLg6byFpxMHNbTG8y', NULL, 'huy', '08917627222', 2, '2018-09-21 09:21:13', '2018-09-21 09:21:13', 0),
+	(3, 'huy3@gmail.com', '$2y$10$dLJ6VlBjXEvy.MezBaZfX.MId0VxgayY5k5la060NuO8j6wueCkuq', NULL, 'huy', '123123123123', 2, '2018-09-21 09:22:36', '2018-09-21 09:22:36', 0),
+	(5, 'huy2@gmail.comasdasd', '$2y$10$XzOJKAwcornBOVD5iG0LweB.Zctx5Ps9XLzohBTHzT2XYVWXx84Cq', NULL, 'huy', '990987266377', 2, '2018-09-21 09:42:38', '2018-09-21 09:42:38', 0),
+	(6, 'huy1@gmail.com', '$2y$10$/KcyC4NPJBDPD6qnTVdw/.ZuLBoQbTPmezW/qkuPcytk/9JAAB.b2', 'ta92QAiLbH8Wql3JDdfhxqJiy5TEOT6MgEOTchlsIjXrVgHb4GBwlrFFsWte', 'huy', '0987266377', 2, '2018-09-25 14:53:18', '2018-09-25 15:05:04', 0),
+	(7, 'huy5@gmail.com', '$2y$10$CCLRy2y9Qek4RxTGgpf23e9au7NFpyK3NM6HMbNH6wJ5oluEAvL0S', NULL, 'huy', '0987266377', 3, '2018-09-25 15:04:31', '2018-09-25 15:04:31', 0);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.staff_group
+-- Dumping structure for table lar_bepnha_data_2.staff_group
 CREATE TABLE IF NOT EXISTS `staff_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) DEFAULT NULL,
@@ -1652,7 +1709,7 @@ CREATE TABLE IF NOT EXISTS `staff_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.staff_group: ~3 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.staff_group: ~3 rows (approximately)
 /*!40000 ALTER TABLE `staff_group` DISABLE KEYS */;
 INSERT INTO `staff_group` (`id`, `name`, `role`, `disable`) VALUES
 	(1, 'Super Admin', 'super-admin', 0),
@@ -1660,7 +1717,7 @@ INSERT INTO `staff_group` (`id`, `name`, `role`, `disable`) VALUES
 	(3, 'Partner', 'partner', 0);
 /*!40000 ALTER TABLE `staff_group` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.tags
+-- Dumping structure for table lar_bepnha_data_2.tags
 CREATE TABLE IF NOT EXISTS `tags` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL DEFAULT '0',
@@ -1670,55 +1727,61 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `disable` tinyint(4) NOT NULL DEFAULT '0',
   `order_by` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.tags: ~16 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.tags: ~18 rows (approximately)
 /*!40000 ALTER TABLE `tags` DISABLE KEYS */;
 INSERT INTO `tags` (`id`, `title`, `date_created`, `date_modified`, `created_by`, `disable`, `order_by`) VALUES
-	(1, 'Món ăn ngon', '2018-04-05 10:25:28', '2018-06-12 10:05:48', 1, 0, 3),
-	(2, 'Món ăn mới', '2018-04-05 10:25:39', '2018-06-07 09:41:55', 1, 0, 1),
-	(3, 'Món ăn sáng', '2018-04-05 10:25:52', '2018-05-28 17:10:32', 1, 1, 0),
+	(1, 'Món ăn ngon', '2018-04-05 10:25:28', '2018-09-21 14:15:08', 1, 0, 1),
+	(2, 'Món ăn mới', '2018-04-05 10:25:39', '2018-09-21 14:20:16', 1, 0, 11),
+	(3, 'Món ăn sáng', '2018-04-05 10:25:52', '2018-09-21 09:13:37', 1, 0, 4),
 	(4, 'Bữa cơm gia đình', '2018-05-14 11:03:48', '2018-06-12 10:05:34', 1, 0, 5),
 	(5, 'Ẩm thực đường phố', '2018-05-14 16:33:43', '2018-06-05 09:47:58', 1, 0, 7),
-	(6, 'Món ngọt', '2018-05-14 16:34:01', '2018-06-05 09:49:37', 1, 0, 8),
-	(7, 'Món ăn tốt cho sức khoẻ', '2018-05-14 16:35:51', '2018-06-05 09:50:51', 1, 0, 10),
-	(8, 'Món ăn muối chua', '2018-05-14 16:37:41', '2018-05-28 17:25:42', 1, 1, 0),
-	(9, 'Món ăn trưa', '2018-05-14 17:19:33', '2018-05-28 17:10:46', 1, 1, 0),
+	(6, 'Món ngọt', '2018-05-14 16:34:01', '2018-09-19 15:17:32', 1, 0, 8),
+	(7, 'Món ăn tốt cho sức khoẻ', '2018-05-14 16:35:51', '2018-09-21 11:34:38', 1, 0, 10),
+	(8, 'Món ăn muối chua', '2018-05-14 16:37:41', '2018-09-21 09:16:17', 1, 1, 0),
+	(9, 'Món ăn trưa', '2018-05-14 17:19:33', '2018-09-21 14:15:05', 1, 0, 0),
 	(10, 'Món ăn tối', '2018-05-14 17:19:40', '2018-05-28 17:10:37', 1, 1, 0),
 	(11, 'Món ăn xế', '2018-05-14 17:19:48', '2018-05-28 17:10:42', 1, 1, 0),
 	(12, 'Món khai vị', '2018-05-14 17:20:34', '2018-05-28 17:10:49', 1, 1, 0),
 	(13, 'Món Salad & Món Gỏi', '2018-05-14 17:22:48', '2018-06-05 09:50:58', 1, 0, 9),
 	(14, 'Nấu ăn cùng người hướng dẫn', '2018-05-28 15:23:41', '2018-06-12 10:05:19', 1, 0, 6),
-	(15, 'Món ăn tây ', '2018-05-28 17:26:05', '2018-06-12 10:05:45', 1, 0, 2),
-	(16, 'Món ăn chay ', '2018-06-05 09:46:49', '2018-06-12 10:06:58', 1, 0, 4);
+	(15, 'Món ăn tây ', '2018-05-28 17:26:05', '2018-09-21 14:14:50', 1, 0, 2),
+	(16, 'Món ăn chay ', '2018-06-05 09:46:49', '2018-09-21 09:13:43', 1, 0, 3),
+	(17, 'thulan1', '2018-09-20 16:54:33', '2018-09-20 16:57:31', 1, 1, 0),
+	(18, '<test>', '2018-09-25 14:15:26', '2018-09-25 14:18:11', 1, 0, 0);
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.tag_document
+-- Dumping structure for table lar_bepnha_data_2.tag_document
 CREATE TABLE IF NOT EXISTS `tag_document` (
   `document_id` int(11) unsigned NOT NULL,
   `tag_id` int(11) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table lar_bepnha_data.tag_document: ~0 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.tag_document: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tag_document` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tag_document` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.tag_grouped
+-- Dumping structure for table lar_bepnha_data_2.tag_grouped
 CREATE TABLE IF NOT EXISTS `tag_grouped` (
   `tag_group_id` int(11) unsigned NOT NULL,
   `tag_id` int(11) unsigned NOT NULL,
   UNIQUE KEY `unique` (`tag_group_id`,`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.tag_grouped: ~3 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.tag_grouped: ~7 rows (approximately)
 /*!40000 ALTER TABLE `tag_grouped` DISABLE KEYS */;
 INSERT INTO `tag_grouped` (`tag_group_id`, `tag_id`) VALUES
-	(1, 1),
-	(1, 2),
-	(1, 3);
+	(1, 3),
+	(4, 1),
+	(4, 2),
+	(4, 3),
+	(4, 11),
+	(5, 1),
+	(5, 2);
 /*!40000 ALTER TABLE `tag_grouped` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.tag_groups
+-- Dumping structure for table lar_bepnha_data_2.tag_groups
 CREATE TABLE IF NOT EXISTS `tag_groups` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` char(50) NOT NULL,
@@ -1726,22 +1789,24 @@ CREATE TABLE IF NOT EXISTS `tag_groups` (
   `date_modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `disable` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.tag_groups: ~0 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.tag_groups: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tag_groups` DISABLE KEYS */;
 INSERT INTO `tag_groups` (`id`, `title`, `date_created`, `date_modified`, `disable`) VALUES
-	(1, 'Mỗi ngày', '2018-04-05 10:27:01', '2018-04-19 17:28:52', 0);
+	(1, 'a', '2018-04-05 10:27:01', '2018-09-25 17:19:32', 0),
+	(4, 'tôi là huy1', '2018-09-20 13:43:54', '2018-09-21 13:49:49', 1),
+	(5, 'thulan1', '2018-09-25 16:09:33', '2018-09-25 16:09:33', 0);
 /*!40000 ALTER TABLE `tag_groups` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.tag_video
+-- Dumping structure for table lar_bepnha_data_2.tag_video
 CREATE TABLE IF NOT EXISTS `tag_video` (
   `video_id` int(11) unsigned NOT NULL,
   `tag_id` int(11) unsigned NOT NULL,
   UNIQUE KEY `unique` (`video_id`,`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.tag_video: ~276 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.tag_video: ~279 rows (approximately)
 /*!40000 ALTER TABLE `tag_video` DISABLE KEYS */;
 INSERT INTO `tag_video` (`video_id`, `tag_id`) VALUES
 	(1, 1),
@@ -2020,10 +2085,12 @@ INSERT INTO `tag_video` (`video_id`, `tag_id`) VALUES
 	(106, 15),
 	(107, 2),
 	(107, 5),
-	(108, 1);
+	(108, 1),
+	(109, 1),
+	(109, 3);
 /*!40000 ALTER TABLE `tag_video` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.videos
+-- Dumping structure for table lar_bepnha_data_2.videos
 CREATE TABLE IF NOT EXISTS `videos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) DEFAULT NULL,
@@ -2055,12 +2122,12 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `is_home` tinyint(1) NOT NULL DEFAULT '0',
   `disable` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='''pending'',''encoding'',''completed'',''old''';
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='''pending'',''encoding'',''completed'',''old''';
 
--- Dumping data for table lar_bepnha_data.videos: ~85 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.videos: ~85 rows (approximately)
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
 INSERT INTO `videos` (`id`, `name`, `chef`, `description`, `video_location`, `image_location`, `background_location`, `duration`, `time_to_done`, `ingredients`, `ingredients_2`, `steps`, `level`, `note`, `video_type_id`, `pcategory_id`, `category_id`, `created_by`, `modified_by`, `date_created`, `date_modified`, `view_count`, `ordering`, `is_featured`, `is_new`, `is_for_you`, `is_like`, `is_home`, `disable`) VALUES
-	(1, 'Mì Ý Sốt Pesto - Lạ miệng không kém phần thơm ngon | Vào bếp cùng Bếp Nhà', 'Bếp nhà', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', '2018/04/05/1522894210-Mi-Y-Sot-Pesto-La-mieng-khong-kem-phan-thom-ngon-_-Vao-bep-cung-Bep-Nha.mp4', 'videos/2018/04/10/1523330254-mi-y.jpg', NULL, '02:28', '10:00', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', NULL, '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', '4', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', 2, 1, 2, 1, 1, '2018-04-05 09:10:16', '2018-04-10 10:17:38', 31, 0, 0, 0, 0, 0, 0, 1),
+	(1, 'Mì Ý Sốt Pesto - Lạ miệng không kém phần thơm ngon | Vào bếp cùng Bếp Nhà', 'Bếp nhà', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', '2018/04/05/1522894210-Mi-Y-Sot-Pesto-La-mieng-khong-kem-phan-thom-ngon-_-Vao-bep-cung-Bep-Nha.mp4', 'videos/2018/04/10/1523330254-mi-y.jpg', NULL, '02:28', '10:00', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', NULL, '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', '4', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4: Bắc chảo l&ecirc;n bếp, chảo n&oacute;ng cho dầu olive v&agrave; phi thơm ch&uacute;t h&agrave;nh t&iacute;m, cho phần m&igrave; sau khi r&aacute;o nước v&agrave;o x&agrave;o sơ. Th&ecirc;m ch&uacute;t rượu vang trắng để l&agrave;m dậy th&ecirc;m m&ugrave;i thơm cho m&igrave; nh&eacute;. Sau đ&oacute; tr&igrave;nh b&agrave;y m&igrave; ra dĩa v&agrave; chế phần sốt Pesto l&ecirc;n. ***C&oacute; hai c&aacute;ch tr&igrave;nh b&agrave;y: C&oacute; thể chế sốt l&ecirc;n m&igrave; sau khi đ&atilde; ra dĩa. Hoặc chế sốt v&ocirc; chung với m&igrave; trong chảo v&agrave; trộn đều. *** Lưu &yacute;: Phần sốt sẽ đặc n&ecirc;n c&aacute;c bạn nhớ th&ecirc;m nước cho phần sốt lo&atilde;ng ra để dễ chế biến v&agrave; sốt sẽ &aacute;o đều sợi m&igrave;. Ch&uacute;c c&aacute;c bạn th&agrave;nh c&ocirc;ng v&agrave; ngon miệng với m&oacute;n Mỳ &Yacute; Sốt Pesto chuẩn nh&agrave; h&agrave;ng v&agrave; cực đơn giản n&agrave;y nh&eacute;! ------------------------------------------- Mỳ &Yacute; Sốt Pesto - Bếp Nh&agrave; TV Studio Tổ chức sản xuất : Vick Le Cố vấn sản xuất : Wa Hyhy Quay Phim : L&ecirc; Anh Nguy&ecirc;n - Vick Le Dựng Phim : Vick Le Design H&igrave;nh Ảnh : L&ecirc; Anh Nguy&ecirc;n Đầu Bếp : Chef Hữu Đức</span></p>\r\n', 2, 1, 2, 1, 1, '2018-04-05 09:10:16', '2018-04-10 10:17:38', 33, 0, 0, 0, 0, 0, 0, 1),
 	(2, 'Bò Xào', '', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4:&nbsp;</span></p>\r\n', '2018/04/05/1522899337-Mi-Y-Sot-Pesto-La-mieng-khong-kem-phan-thom-ngon-_-Vao-bep-cung-Bep-Nha.mp4', 'videos/2018/04/05/1522899340-mon-ngon-tu-thit-ba-chi-20.png', NULL, '05:00', '30:00', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4:&nbsp;</span></p>\r\n', NULL, '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4:&nbsp;</span></p>\r\n', '5', '<p><span style="color:rgb(17, 17, 17); font-size:14px">M&igrave; &Yacute; m&oacute;n m&igrave; truyền thống, thơm ngon đến từ đất nước &Yacute;. Sự kết hợp tuyệt vời của m&igrave; &Yacute; v&agrave; sốt pesto lạ miệng sẽ khiến bạn ngất ng&acirc;y với hương vị mang đậm chất Ch&acirc;u &Acirc;u.&nbsp;Sốt pesto&nbsp;c&oacute; nguồn gốc từ Genova được l&agrave;m từ l&aacute; basic (l&aacute; quế t&acirc;y), tỏi v&agrave; hạt th&ocirc;ng mang theo hương vị đặc trưng của loại l&aacute; n&agrave;y. Bếp Nh&agrave; xin giới thiệu với c&aacute;c bạn c&aacute;ch l&agrave;m m&igrave; &Yacute; sốt Pesto hấp dẫn n&agrave;y nh&eacute;! Nguy&ecirc;n Liệu: &nbsp;300 gr m&igrave; pasta 50 gr l&aacute; basil 100 gr phomai Pamesan 6 con t&ocirc;m to 150 ml dầu oliu 50 gr hạt th&ocirc;ng hoặc hạt &oacute;c ch&oacute; Một ch&uacute;t rượu vang trắng Muối v&agrave; ti&ecirc;u. 3 t&eacute;p tỏi C&aacute;ch l&agrave;m: Bước 1: Cho v&agrave;o nước luộc m&igrave; ch&uacute;t dầu olive v&agrave; một ch&uacute;t muối. Luộc m&igrave; trong v&ograve;ng 7 ph&uacute;t, từ l&uacute;c nước s&ocirc;i. Bước 2: L&agrave;m sốt: Rang hạt &oacute;c ch&oacute; tới l&uacute;c dậy m&ugrave;i thơm l&ecirc;n. Sau đ&oacute; d&ugrave;ng cối gi&atilde; sơ hạt &oacute;c ch&oacute;. Tiếp tục cho hết hạt &oacute;c ch&oacute; v&ocirc; cối xay c&ugrave;ng với dầu olive, l&aacute; basil (l&aacute; quế t&acirc;y) , ph&ocirc; mai parmesan bột, tỏi, ch&uacute;t muối v&agrave; ti&ecirc;u sau cũng l&agrave; th&ecirc;m 1 &iacute;t nước v&agrave;o v&agrave; xay nhuyễn. Bước 3: Ướp t&ocirc;m: với ch&uacute;t muối, ti&ecirc;u v&agrave; dầu olive khoảng 10-15 ph&uacute;t. Bước 4:&nbsp;</span></p>\r\n', 3, 1, 2, 1, NULL, '2018-04-05 10:36:05', NULL, 4, 0, 0, 0, 0, 0, 0, 1),
 	(3, 'Cách làm cua rang muối siêu ngon', 'ABC', '', '2018/04/09/1523266295-Cach-lam-cua-rang-muoi-sieu-ngon-_-Vao-bep-cung-Bep-Nha.mp4', 'videos/2018/04/09/1523266281-ca1-600x400.jpg', NULL, '04:00', '15:00', '<p><span style="color:rgb(17, 17, 17); font-size:14px">Nguy&ecirc;n Liệu - Cua thịt: 2 con - H&agrave;nh t&acirc;y: 100g - &frac12; tr&aacute;i ớt chu&ocirc;ng, h&agrave;nh l&aacute; - 50g Hạt điều, 50g t&ocirc;m kh&ocirc; - 1 muỗng canh bột chi&ecirc;n gi&ograve;n, 50g bột chi&ecirc;n x&ugrave; - Gia vị: tỏi, bột ngũ vị hương, h&agrave;nh t&iacute;m, muối</span></p>\r\n', NULL, '<p><span style="color:rgb(17, 17, 17); font-size:14px">Sơ chế: - Tỏi, h&agrave;nh t&iacute;m lột vỏ, băm nhỏ, để ri&ecirc;ng. H&agrave;nh t&acirc;y lột vỏ, cắt nhỏ. H&agrave;nh l&aacute; rửa sạch, cắt nhỏ. Ớt chu&ocirc;ng rửa sạch, bỏ ruột rồi cắt nhỏ. - Cua t&aacute;ch mai, gỡ yếm v&agrave; phần dơ, sau đ&oacute; cắt l&agrave;m 2 hoặc 4 rồi ướp cua với 1 muỗng c&agrave; ph&ecirc; muối, 1 muỗng c&agrave; ph&ecirc; ti&ecirc;u, 1 muỗng canh hạt n&ecirc;m. C&aacute;ch l&agrave;m: - Cua đ&atilde; ướp lăn qua bột chi&ecirc;n gi&ograve;n. Bắc chảo l&ecirc;n bếp, cho dầu ăn v&agrave;o để s&ocirc;i rồi cho cua đ&atilde; lăn bột chi&ecirc;n v&agrave;o chi&ecirc;n ngập dầu để cua v&agrave;ng đều rồi vớt ra để r&aacute;o dầu - Bắc chảo l&ecirc;n bếp, cho lần lượt t&ocirc;m kh&ocirc;, hạt điều, bột chi&ecirc;n x&ugrave; v&agrave;o rang rồi cho v&agrave;o chung một b&aacute;t. Sau đ&oacute; th&ecirc;m hạt n&ecirc;m, ngũ vị hương, ớt bột v&agrave;o trộn đều rồi cho hỗn hợp n&agrave;y v&agrave;o m&aacute;y xay nhuyễn th&agrave;nh bột cho ra b&aacute;t l&agrave;m muối rang. - Cho &iacute;t dầu ăn v&agrave;o chảo để n&oacute;ng phi thơm tỏi băm, h&agrave;nh t&iacute;m băm rồi th&ecirc;m h&agrave;nh t&acirc;y, h&agrave;nh l&aacute;, ớt cắt nhỏ v&agrave;o x&agrave;o c&ugrave;ng. - Tiếp đến th&ecirc;m cua v&agrave;o đảo c&ugrave;ng, sốc chảo rồi cho muối rang v&agrave;o đảo đều, để một l&uacute;c cho muối rang ngấm đều v&agrave; b&aacute;m một lớp l&ecirc;n cua l&agrave; được - Gắp cua th&agrave;nh phẩm xếp ra đĩa th&agrave;nh h&igrave;nh con cua ho&agrave;n chỉnh, rải th&ecirc;m t&iacute; muối rang v&agrave; trang tr&iacute; th&ecirc;m cho đĩa cua rang muối mớ rau răm l&agrave; bạn đ&atilde; ho&agrave;n th&agrave;nh m&oacute;n ăn ngon cua rang muối. Cua rang muối ch&iacute;n đỏ, thịt c&oacute; vị ngọt tươi, mằn mặn rồi thơm cay của muối rang sẽ l&agrave;m cho bạn phải ng&acirc;y ngất khi thưởng thức. Vậy n&ecirc;n, hi vọng c&aacute;ch nấu cua rang muối tr&ecirc;n đ&acirc;y sẽ gi&uacute;p bạn dễ d&agrave;ng khi học l&agrave;m cua rang muối thơm ngon, đậm vị cho cả nh&agrave;.</span></p>\r\n', '3', '', 2, 1, 2, 1, NULL, '2018-04-09 16:31:58', NULL, 8, 0, 0, 0, 0, 0, 0, 1),
 	(4, 'fgjifkj', '', '', '2018/04/10/1523330618-Cơm-chiên-phô-mai-kim-chi.mp4', 'videos/2018/04/10/1523330627-17410359_10209094167053812_1062618448_n.png', NULL, '06:00', '', '', NULL, '', '', '', 0, 1, 2, 1, 1, '2018-04-10 10:24:03', '2018-04-10 10:25:09', 10, 0, 0, 0, 0, 0, 0, 1),
@@ -2167,17 +2234,18 @@ INSERT INTO `videos` (`id`, `name`, `chef`, `description`, `video_location`, `im
 	(105, 'Chè sữa Thái ', '', '', '2018/08/29/1535511872-CACH-LAM-CHE-SUA-THAI-HOW-TO-MAKE-THAI-SWEET-GRUEL-VAO-BEP-CUNG-BEP-NHA-BEP-NHA-TV.mp4', 'videos/2018/08/29/1535511901-tra-sua-thai.jpg', NULL, '01:44', '', '', '', '', '', '', 3, 6, 14, 1, NULL, '2018-08-29 10:06:06', NULL, 682, 0, 0, 0, 0, 0, 1, 0),
 	(106, 'Salad cá hồi và bơ', '', '', '2018/08/30/1535595926-CACH-LAM-SALAD-CA-HOI-&-BO-HOW-TO-MAKE-SALMON-AVOCADO-SALAD-VAO-BEP-CUNG-BEP-NHA-BEP-NHA-TV.mp4', 'videos/2018/08/30/1535596079-salad-ca-hoi-va-bo.jpg', NULL, '01:28', '', '', '', '', '', '', 0, 5, 8, 1, NULL, '2018-08-30 09:28:20', NULL, 1348, 0, 0, 0, 0, 0, 1, 0),
 	(107, 'Bánh Trung Thu : Nghệ thuật bị đánh mất', '', '<p>B&aacute;nh trung thu Handmade l&agrave; một phần kh&ocirc;ng thể thiếu của nghệ thuật l&agrave;m b&aacute;nh trung thu. C&ugrave;ng Bếp Nh&agrave; TV kh&aacute;m ph&aacute; qua c&acirc;u chuyện của nghệ nh&acirc;n Mr.Tam tại Hong Kong nh&eacute;</p>\r\n', '2018/09/05/1536117109-Banh-trung-thu-Nghe-thuat-bi-danh-mat.mp4', 'videos/2018/09/04/1536036633-banh-trung-thu.png', NULL, '02:00', '', '', '', '', '', '', 0, 6, 7, 1, 1, '2018-09-04 11:51:27', '2018-09-05 10:20:35', 1230, 0, 0, 0, 0, 0, 1, 0),
-	(108, 'thulan1', 'Đầu bếp', '<p><strong>M&ocirc; tả</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', '2018/09/11/1536661216-videoplayback.mp4', 'videos/2018/09/11/1536661409-download.jpg', NULL, '5:00', '5:00', '<p><strong>Th&agrave;nh phần m&oacute;n ăn 1</strong></p>\r\n', '<p><strong>Th&agrave;nh phần m&oacute;n ăn 2</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', '<p><strong>C&aacute;c bước l&agrave;m</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', '2', '<p><strong>Ghi ch&uacute;</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', 1, 3, 15, 1, 1, '2018-09-11 17:22:30', '2018-09-11 17:23:34', 0, 0, 0, 0, 0, 0, 0, 0);
+	(108, 'thulan1', 'Đầu bếp', '<p><strong>M&ocirc; tả</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', '2018/09/11/1536661216-videoplayback.mp4', 'videos/2018/09/11/1536661409-download.jpg', NULL, '5:00', '5:00', '<p><strong>Th&agrave;nh phần m&oacute;n ăn 1</strong></p>\r\n', '<p><strong>Th&agrave;nh phần m&oacute;n ăn 2</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', '<p><strong>C&aacute;c bước l&agrave;m</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', '2', '<p><strong>Ghi ch&uacute;</strong></p>\r\n\r\n<p><span style="color:rgb(0, 0, 0); font-size:12px"><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span><span style="background-color:initial !important">&nbsp;</span></span></p>\r\n', 1, 3, 15, 1, 1, '2018-09-11 17:22:30', '2018-09-11 17:23:34', 0, 0, 0, 0, 0, 0, 0, 0),
+	(109, 'thulan2', 'Đầu bếp', '<p>a</p>\r\n', '2018/09/20/1537426128-videoplayback.mp4', 'videos/2018/09/20/1537426140-WwLRaQp.jpg', NULL, '5:00', '5:00', '<p>a</p>\r\n', '<p>a</p>\r\n', '<p>a</p>\r\n', '2', '<p>a</p>\r\n', 2, 21, 10, 1, NULL, '2018-09-20 13:49:24', NULL, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 
--- Dumping structure for table lar_bepnha_data.video_types
+-- Dumping structure for table lar_bepnha_data_2.video_types
 CREATE TABLE IF NOT EXISTS `video_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lar_bepnha_data.video_types: ~3 rows (approximately)
+-- Dumping data for table lar_bepnha_data_2.video_types: ~3 rows (approximately)
 /*!40000 ALTER TABLE `video_types` DISABLE KEYS */;
 INSERT INTO `video_types` (`id`, `name`) VALUES
 	(1, 'Bữa sáng'),

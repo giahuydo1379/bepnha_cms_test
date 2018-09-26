@@ -106,6 +106,7 @@
                 </table>
                 </div>
 
+
                 <div class="col-sm-6">
                     <table id="demo-custom-toolbar" class="demo-add-niftycheck" data-toggle="table"
                            data-locale="vi-VN"
@@ -133,12 +134,8 @@
                             <th data-field="name" data-sortable="true">Tên Video</th>
 
                             <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
+                            
 
-                            {{--
-                            <th data-field="is_featured" data-align="center" data-sortable="true" data-formatter="formatFeatured">
-                                Nổi bật
-                            </th>
-                            --}}
 
                         </tr>
                         </thead>
