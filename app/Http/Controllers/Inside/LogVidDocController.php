@@ -145,6 +145,30 @@ class LogVidDocController extends MyController
         ]);
     }
 
+    public function getAjaxDataListDate(Request $request)
+    {
+        $filter = [
+            'offset' => $request->input('offset', 0),
+            'limit' => $request->input('limit', PAGE_LIST_COUNT),
+            'sort' => $request->input('sort', 'id'),
+            'order' => $request->input('order', 'asc'),
+            'search' => $request->input('search', ''),
+            'status' => $request->input('status', ''),
+            'from' => $request->input('from', ''),
+            'to' => $request->input('to', ''),
+            'style' => $request->input('style', '')
+
+        ];
+        session('video_filters', $filter);
+
+        $data = $this->_model->getAllLogVidDocs3($filter);
+
+        return response()->json([
+            'total' => $data['total'],
+            'rows' => $data['data'],
+        ]);
+    }
+
     /**
      * List staffs request
      * @return JSON

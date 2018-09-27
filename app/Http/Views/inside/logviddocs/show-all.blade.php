@@ -67,48 +67,42 @@
                 </div>
 
                 <div class="col-sm-6">
-                <table id="demo-custom-toolbar" class="demo-add-niftycheck" data-toggle="table"
-                       data-locale="vi-VN"
-                       data-toolbar="#table-toolbar"
-                       data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data") !!}"
-                       data-search="true"
-                       data-show-refresh="true"
-                       data-show-toggle="true"
-                       data-show-columns="true"
-                       data-pagination="true"
-                       data-side-pagination="server"
-                       data-page-size="{{ PAGE_LIST_COUNT }}"
-                       data-query-params="queryParams"
-                       data-cookie="true"
-                       data-cookie-id-table="inside-video-show-all"
-                       data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
-                >
-                    <thead>
-                    <tr>
-                        <th data-field="check_id" data-checkbox="true">ID</th>
-                        <th data-field="date" data-sortable="true">Ngày</th>
+                    <table id="demo-custom-toolbar1" class="demo-add-niftycheck" data-toggle="table"
+                           data-locale="vi-VN"
+                           data-toolbar="#table-toolbar"
+                           data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data-list-date") !!}"
+                           data-search="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-columns="true"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-page-size="{{ PAGE_LIST_COUNT }}"
+                           data-query-params="queryParams"
+                           data-cookie="true"
+                           data-cookie-id-table="inside-video-show-all"
+                           data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
+                    >
+                        <thead>
+                        <tr>
+                            <th data-field="check_id" data-checkbox="true">ID</th>
 
-                        <th data-field="title" data-sortable="true">Tên Công thức nấu ăn</th>
 
-                        <th data-field="name" data-sortable="true">Tên Video</th>
+                            <th data-field="date" data-sortable="true">Ngày</th>
 
-                        <th data-field="total" data-sortable="true">Lượt xem</th>
+                            <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
+                            {{--<th data-field="vid_doc_id" data-align="center" data-formatter="detail">Xem chi tiết</th>--}}
 
-                        {{--
-                        <th data-field="is_featured" data-align="center" data-sortable="true" data-formatter="formatFeatured">
-                            Nổi bật
-                        </th>
-                        --}}
 
-                    </tr>
-                    </thead>
+                        </tr>
+                        </thead>
 
-                </table>
+                    </table>
                 </div>
 
 
                 <div class="col-sm-6">
-                    <table id="demo-custom-toolbar" class="demo-add-niftycheck" data-toggle="table"
+                    <table id="demo-custom-toolbar2" class="demo-add-niftycheck" data-toggle="table"
                            data-locale="vi-VN"
                            data-toolbar="#table-toolbar"
                            data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data-list") !!}"
@@ -134,7 +128,42 @@
                             <th data-field="name" data-sortable="true">Tên Video</th>
 
                             <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
-                            
+                            {{--<th data-field="vid_doc_id" data-align="center" data-formatter="detail">Xem chi tiết</th>--}}
+
+
+                        </tr>
+                        </thead>
+
+                    </table>
+                </div>
+
+                <div class="row">
+                    <table id="demo-custom-toolbar3" class="demo-add-niftycheck" data-toggle="table"
+                           data-locale="vi-VN"
+                           data-toolbar="#table-toolbar"
+                           data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data") !!}"
+                           data-search="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-columns="true"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-page-size="{{ PAGE_LIST_COUNT }}"
+                           data-query-params="queryParams"
+                           data-cookie="true"
+                           data-cookie-id-table="inside-video-show-all"
+                           data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
+                    >
+                        <thead>
+                        <tr>
+                            <th data-field="check_id" data-checkbox="true">ID</th>
+                            <th data-field="date" data-sortable="true">Ngày</th>
+
+                            <th data-field="title" data-sortable="true">Tên Công thức nấu ăn</th>
+
+                            <th data-field="name" data-sortable="true">Tên Video</th>
+
+                            <th data-field="total" data-sortable="true">Lượt xem</th>
 
 
                         </tr>
@@ -147,6 +176,8 @@
             </div>
         </div>
     </div>
+
+
 
     <link rel="stylesheet" type="text/css"
           href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
@@ -176,40 +207,35 @@
             src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.vi.min.js"
             charset="UTF-8"></script>
 
+
+
     <script type="text/javascript">
-        function actionColumn(value, row, index) {
-            var editBtn = [
-                '<a href="{{ url("/{$moduleName}/{$controllerName}/edit") }}/' + value + '" ',
-                'class="add-tooltip btn btn-primary btn-icon icon-lg btn-xs" data-placement="top" data-original-title="Sửa">',
-                '<i class="fa fa-pencil"></i></a>'
+        function detail(value, row, index, field) {
+                    {{--var data = {--}}
+                    {{--'_token': '{{ csrf_token() }}',--}}
+                    {{--'id': id,--}}
+                    {{--}--}}
+
+                    {{--var $this = $("#myModal");--}}
+                    {{--$.get('/post/detail_ajax/' + id, data, function (data) {--}}
+                    {{--$this.modal("show");--}}
+                    {{--$this.find("#nameCate").html(data);--}}
+                    {{--})--}}
+
+            var url = "{{ url('/fdrive/server/detail/') }}";
+            var statusBtn = [
+                '<a class="btn btn-success btn-labeled" href="' + url + '/' + value + '"><i class="btn-label fa fa-th-large"></i>' + 'Detail' + '</a>'
             ].join('');
-            var removeBtn = [
-                '<a href="#" onclick="removeItems([' + value + '], event)"',
-                'class="add-tooltip btn btn-danger btn-icon icon-lg btn-xs" data-placement="top" data-original-title="Đổi trạng thái">',
-                '<i class="fa fa-trash-o"></i></a>'
-            ].join('');
 
-            return [editBtn, removeBtn].join(' ');
+
+            return [statusBtn].join('');
         }
 
-        function formatImage(value, row, index) {
 
-            var url = '<img src="{!! $_ENV['MEDIA_URL_IMAGE'] !!}/' + value + '" height="100" width="150">';
 
-            return url;
-        }
 
-        function formatDisable(value, row, index) {
-            return value === 0 ?
-                '<span class="label label-sm label-success">Hoạt động</span>' :
-                '<span class="label label-sm label-danger">Không hoạt động</span>';
-        }
 
-        function formatFeatured(value, row, index) {
-            return value === 1 ?
-                '<span class="label label-sm label-success">Nổi bật</span>' :
-                '<span class="label label-sm label-danger">Không nổi bật</span>';
-        }
+
 
         function formatRecipe(value, row, index) {
             return value === 1 ?
@@ -236,148 +262,9 @@
             });
         }
 
-        function inActiveItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận bỏ kích hoạt công thức nấu ăn?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/remove") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-featured-row').prop('disabled', true);
-                    $('#demo-unfeatured-row').prop('disabled', true);
-                    $('#demo-inactive-row').prop('disabled', true);
-                    $('#demo-recipe-row').prop('disabled', true);
-                    $('#demo-unrecipe-row').prop('disabled', true);
-                    $('#demo-active-row').prop('disabled', true);
-                });
-            }
-        }
-
-        function activeItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận kích hoạt công thức nấu ăn?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/active") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-featured-row').prop('disabled', true);
-                    $('#demo-unfeatured-row').prop('disabled', true);
-                    $('#demo-inactive-row').prop('disabled', true);
-                    $('#demo-recipe-row').prop('disabled', true);
-                    $('#demo-unrecipe-row').prop('disabled', true);
-                    $('#demo-active-row').prop('disabled', true);
-                });
-            }
-        }
-
-        function removeItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận đổi trạng thái?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/change") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-delete-row').prop('disabled', true);
-                });
-            }
-        }
 
 
-        function featuredItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận thiết lập trạng thái công thức nấu ăn nổi bật?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/featured") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-featured-row').prop('disabled', true);
-                    $('#demo-unfeatured-row').prop('disabled', true);
-                    $('#demo-inactive-row').prop('disabled', true);
-                    $('#demo-recipe-row').prop('disabled', true);
-                    $('#demo-unrecipe-row').prop('disabled', true);
-                    $('#demo-active-row').prop('disabled', true);
-                });
-            }
-        }
 
-        function unFeaturedItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận bỏ trạng thái nổi bật công thức nấu ăn?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/un-featured") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-featured-row').prop('disabled', true);
-                    $('#demo-unfeatured-row').prop('disabled', true);
-                    $('#demo-inactive-row').prop('disabled', true);
-                    $('#demo-recipe-row').prop('disabled', true);
-                    $('#demo-unrecipe-row').prop('disabled', true);
-                    $('#demo-active-row').prop('disabled', true);
-                });
-            }
-        }
-
-        function recipeItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận thiết lập công thức nấu ăn?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/recipe") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-featured-row').prop('disabled', true);
-                    $('#demo-unfeatured-row').prop('disabled', true);
-                    $('#demo-inactive-row').prop('disabled', true);
-                    $('#demo-recipe-row').prop('disabled', true);
-                    $('#demo-unrecipe-row').prop('disabled', true);
-                    $('#demo-active-row').prop('disabled', true);
-                });
-            }
-        }
-
-        function unRecipeItems(items, e) {
-            if (e) e.preventDefault();
-            if (confirm('Xác nhận bỏ công thức nấu ăn?')) {
-                var url = '{{ url("/{$moduleName}/{$controllerName}/un-recipe") }}';
-                var data = {
-                    '_token': '{{ csrf_token() }}',
-                    'ids': items
-                };
-                $.post(url, data).done(function (data) {
-                    notifyMsg(data.msg);
-                    $('#demo-custom-toolbar').bootstrapTable('refresh');
-                    $('#demo-featured-row').prop('disabled', true);
-                    $('#demo-unfeatured-row').prop('disabled', true);
-                    $('#demo-inactive-row').prop('disabled', true);
-                    $('#demo-recipe-row').prop('disabled', true);
-                    $('#demo-unrecipe-row').prop('disabled', true);
-                    $('#demo-active-row').prop('disabled', true);
-                });
-            }
-        }
 
         function queryParams(params) {
             params.status = $('#status_filter').val();
@@ -395,107 +282,21 @@
 
         $(document).ready(function () {
 
-            @if (session('msg'))
-            notifyMsg('{{ session('msg') }}');
-                    @endif
 
-            var $table = $('#demo-custom-toolbar'),
 
-                $remove = $('#demo-inactive-row');
-            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
-            }).on('load-success.bs.table', function () {
-                var tooltip = $('.add-tooltip');
-                if (tooltip.length) tooltip.tooltip();
-            });
+            var $table1 = $('#demo-custom-toolbar1');
+            var $table2 = $('#demo-custom-toolbar2');
+            var $table3 = $('#demo-custom-toolbar3');
 
-            $remove.click(function () {
-                var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-                    return row.id
-                });
-                inActiveItems(ids);
-            });
 
-            $active = $('#demo-active-row');
-            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $active.prop('disabled', !$table.bootstrapTable('getSelections').length);
-            }).on('load-success.bs.table', function () {
-                var tooltip = $('.add-tooltip');
-                if (tooltip.length) tooltip.tooltip();
-            });
 
-            $active.click(function () {
-                var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-                    return row.id
-                });
-                activeItems(ids);
-
-            });
-
-            $featured = $('#demo-featured-row');
-            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $featured.prop('disabled', !$table.bootstrapTable('getSelections').length);
-            }).on('load-success.bs.table', function () {
-                var tooltip = $('.add-tooltip');
-                if (tooltip.length) tooltip.tooltip();
-            });
-
-            $featured.click(function () {
-                var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-                    return row.id
-                });
-                featuredItems(ids);
-            });
-
-            $unfeatured = $('#demo-unfeatured-row');
-            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $unfeatured.prop('disabled', !$table.bootstrapTable('getSelections').length);
-            }).on('load-success.bs.table', function () {
-                var tooltip = $('.add-tooltip');
-                if (tooltip.length) tooltip.tooltip();
-            });
-
-            $unfeatured.click(function () {
-                var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-                    return row.id
-                });
-                unFeaturedItems(ids);
-            });
-
-            $recipe = $('#demo-recipe-row');
-            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $recipe.prop('disabled', !$table.bootstrapTable('getSelections').length);
-            }).on('load-success.bs.table', function () {
-                var tooltip = $('.add-tooltip');
-                if (tooltip.length) tooltip.tooltip();
-            });
-
-            $recipe.click(function () {
-                var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-                    return row.id
-                });
-                recipeItems(ids);
-            });
-
-            $unrecipe = $('#demo-unrecipe-row');
-            $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $unrecipe.prop('disabled', !$table.bootstrapTable('getSelections').length);
-            }).on('load-success.bs.table', function () {
-                var tooltip = $('.add-tooltip');
-                if (tooltip.length) tooltip.tooltip();
-            });
-
-            $unrecipe.click(function () {
-                var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-                    return row.id
-                });
-                unRecipeItems(ids);
-            });
 
             // select_filter
             $('.custom_filter').chosen({width: '100%'});
             $('.custom_filter').on('change', function (evt, params) {
-                $table.bootstrapTable('refresh');
+                $table1.bootstrapTable('refresh');
+                $table2.bootstrapTable('refresh');
+                $table3.bootstrapTable('refresh');
             });
 
             $('#date_from,#date_to').datepicker({
@@ -505,7 +306,9 @@
                 todayHighlight: true,
                 language: 'vi'
             }).on('changeDate', function (e) {
-                $table.bootstrapTable('refresh');
+                $table1.bootstrapTable('refresh');
+                $table2.bootstrapTable('refresh');
+                $table3.bootstrapTable('refresh');
             });
 
             $('#reset-page').click(function () {
@@ -513,11 +316,11 @@
                 document.getElementById('from_filter').value = '';
                 document.getElementById('status_filter').value = 'active';
                 $('#status_filter').trigger('chosen:updated');
-                document.getElementById('pcategory_filter').value = '';
-                $('#pcategory_filter').trigger('chosen:updated');
-                document.getElementById('category_filter').value = '';
-                $('#category_filter').trigger('chosen:updated');
-                $table.bootstrapTable('refresh');
+                $('#status_style').trigger('chosen:updated');
+                document.getElementById('status_style').value = '1';
+                $table1.bootstrapTable('refresh');
+                $table2.bootstrapTable('refresh');
+                $table3.bootstrapTable('refresh');
                 return false;
             });
         });
