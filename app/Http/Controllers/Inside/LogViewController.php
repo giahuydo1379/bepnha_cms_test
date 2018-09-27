@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Inside;
 
 use App\MyCore\Inside\Routing\MyController;
-use App\Http\Models\Inside\Documents;
-use App\Http\Models\Inside\LogVidDocs;
+use App\Http\Models\Inside\LogViews;
 use App\Http\Models\Inside\VideoTypes;
 use App\Http\Models\Inside\Categories;
-use App\Http\Models\Inside\Levels;
-use App\Http\Requests\Inside\VideosRequest;
 use DB;
 use Illuminate\Http\Request;
-
 use Excel;
 use App\Http\Requests\Inside\DocumentsRequest;
 
-class LogVidDocController extends MyController
+class LogViewController extends MyController
 {
     private $_model = null;
     private $_params = array();
@@ -28,13 +24,15 @@ class LogVidDocController extends MyController
         parent::__construct($options);
 
         $this->data['title'] = 'Nhật kí';
-        $this->data['controllerName'] = 'logviddocs';
-        $this->_model = new LogVidDocs();
+        $this->data['controllerName'] = 'logviews';
+        $this->_model = new LogViews();
     }
 
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function getIndex()
@@ -44,7 +42,9 @@ class LogVidDocController extends MyController
 
     /**
      * Enter description here ...
+     *
      * @return \Illuminate\View\View
+     *
      * @author HaLV
      */
     public function getShowAll()
@@ -59,41 +59,49 @@ class LogVidDocController extends MyController
             'from' => '',
             'to' => '',
             'style' => '1',
-
         ]);
 
         $this->data['status'] = ['' => '- lọc theo trạng thái -'] + $this->_model->getOptionsStatus();
         $this->data['status_style'] = ['' => '-- lọc theo dạng bài --'] + $this->_model->getOptionsStyle();
+
         return view("{$this->data['moduleName']}.{$this->data['controllerName']}.show-all", $this->buildDataView($this->data));
     }
 
     /**
      * Enter description here ...
+     *
      * @return \Illuminate\View\View
+     *
      * @author HaLV
      */
     public function getListFeatured()
     {
         $this->data['status'] = ['' => ''] + $this->_model->getOptionsStatus();
         $this->data['categories'] = ['' => ''] + Categories::getOptionsCategory();
+
         return view("{$this->data['moduleName']}.{$this->data['controllerName']}.list-featured", $this->buildDataView($this->data));
     }
 
     /**
      * Enter description here ...
+     *
      * @return \Illuminate\View\View
+     *
      * @author HaLV
      */
     public function getListRecipe()
     {
         $this->data['status'] = ['' => ''] + $this->_model->getOptionsStatus();
         $this->data['categories'] = ['' => ''] + Categories::getOptionsCategory();
+
         return view("{$this->data['moduleName']}.{$this->data['controllerName']}.list-recipe", $this->buildDataView($this->data));
     }
 
     /**
-     * List staffs request
+     * List staffs request.
+     *
      * @return JSON
+     *
      * @author HaLV
      */
     public function getAjaxData(Request $request)
@@ -107,13 +115,12 @@ class LogVidDocController extends MyController
             'status' => $request->input('status', ''),
             'from' => $request->input('from', ''),
             'to' => $request->input('to', ''),
-            'style' => $request->input('style', '')
-
+            'style' => $request->input('style', ''),
         ];
         session('video_filters', $filter);
 
         $data = $this->_model->getAllLogVidDocs($filter);
-       // $data = $this->_model->getAllLogVidDocs2($filter);
+        // $data = $this->_model->getAllLogVidDocs2($filter);
 
         return response()->json([
             'total' => $data['total'],
@@ -132,8 +139,7 @@ class LogVidDocController extends MyController
             'status' => $request->input('status', ''),
             'from' => $request->input('from', ''),
             'to' => $request->input('to', ''),
-            'style' => $request->input('style', '')
-
+            'style' => $request->input('style', ''),
         ];
         session('video_filters', $filter);
 
@@ -156,8 +162,7 @@ class LogVidDocController extends MyController
             'status' => $request->input('status', ''),
             'from' => $request->input('from', ''),
             'to' => $request->input('to', ''),
-            'style' => $request->input('style', '')
-
+            'style' => $request->input('style', ''),
         ];
         session('video_filters', $filter);
 
@@ -170,8 +175,10 @@ class LogVidDocController extends MyController
     }
 
     /**
-     * List staffs request
+     * List staffs request.
+     *
      * @return JSON
+     *
      * @author HaLV
      */
     public function getAjaxDataFeatured(Request $request)
@@ -191,41 +198,45 @@ class LogVidDocController extends MyController
         $data = $this->_model->getFeaturedVideos($filter);
 
         return response()->json([
-                'total' => $data['total'],
-                'rows' => $data['data'],
-                ]);
+            'total' => $data['total'],
+            'rows' => $data['data'],
+        ]);
     }
 
     /**
-     * List staffs request
+     * List staffs request.
+     *
      * @return JSON
+     *
      * @author HaLV
      */
     public function getAjaxDataRecipe(Request $request)
     {
         $filter = [
-        'offset' => $request->input('offset', 0),
-        'limit' => $request->input('limit', PAGE_LIST_COUNT),
-        'sort' => $request->input('sort', 'id'),
-        'order' => $request->input('order', 'asc'),
-        'search' => $request->input('search', ''),
-        'status' => $request->input('status', ''),
-        'from' => $request->input('from', ''),
-        'category' => $request->input('category', ''),
-        'to' => $request->input('to', ''),
+            'offset' => $request->input('offset', 0),
+            'limit' => $request->input('limit', PAGE_LIST_COUNT),
+            'sort' => $request->input('sort', 'id'),
+            'order' => $request->input('order', 'asc'),
+            'search' => $request->input('search', ''),
+            'status' => $request->input('status', ''),
+            'from' => $request->input('from', ''),
+            'category' => $request->input('category', ''),
+            'to' => $request->input('to', ''),
         ];
 
         $data = $this->_model->getRecipeVideos($filter);
 
         return response()->json([
-                'total' => $data['total'],
-                'rows' => $data['data'],
-                ]);
+            'total' => $data['total'],
+            'rows' => $data['data'],
+        ]);
     }
 
     /**
      * Enter description here ...
+     *
      * @return \Illuminate\View\View
+     *
      * @author HaLV
      */
     public function getAdd()
@@ -234,18 +245,18 @@ class LogVidDocController extends MyController
         $this->data['categories'] = array('' => '----- Chọn Category phụ -----') + Categories::getOptionsCategoryByTypeDocuments(2);
         $this->data['types'] = array('' => '----- Chọn buổi -----') + VideoTypes::lists('name', 'id')->toArray();
 
-
         $this->data['tags'] = DB::select('select id, title from tags where disable = 0');
-
-
 
         return view("{$this->data['moduleName']}.{$this->data['controllerName']}.add", $this->buildDataView($this->data));
     }
 
     /**
      * Enter description here ...
+     *
      * @param StorageRequest $request
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postAdd(DocumentsRequest $request)
@@ -261,11 +272,13 @@ class LogVidDocController extends MyController
 
     /**
      * Enter description here ...
+     *
      * @param unknown $id
+     *
      * @return \Illuminate\View\View
+     *
      * @author HaLV
      */
-
     public function getEdit($id)
     {
         $this->data['pcategories'] = array('' => '----- Chọn Category chính -----') + Categories::getOptionsCategoryByTypeDocuments(1);
@@ -282,7 +295,6 @@ class LogVidDocController extends MyController
         }
         $this->data['tags'] = $tags;
 
-
         $object = $this->_model->findOrNew($id)->toArray();
 
         if (empty($object)) {
@@ -290,7 +302,6 @@ class LogVidDocController extends MyController
         }
 
         $object['is_new_image'] = 0;
-      
 
         //$object['ingredients'] = json_decode($object['ingredients']);
 
@@ -299,12 +310,14 @@ class LogVidDocController extends MyController
         return view("{$this->data['moduleName']}.{$this->data['controllerName']}.edit", $this->buildDataView($this->data));
     }
 
-
     /**
      * Enter description here ...
+     *
      * @param JobLevelsRequest $request
-     * @param unknown $id
+     * @param unknown          $id
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postEdit(DocumentsRequest $request, $id)
@@ -312,13 +325,17 @@ class LogVidDocController extends MyController
         if ($this->_model->edit($request, $id)) {
             return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/show-all");
         }
+
         return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/edit", $id);
     }
 
     /**
      * Enter description here ...
+     *
      * @param unknown $id
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function getRemove($id)
@@ -330,7 +347,9 @@ class LogVidDocController extends MyController
 
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     // public function postRemove()
@@ -346,93 +365,119 @@ class LogVidDocController extends MyController
     {
         if (isset($this->_params['ids'])) {
             $this->_model->removeMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Đổi trạng thái thành công!']);
         }
+
         return response()->json(['msg' => 'Đổi trạng thái không thành công!']);
     }
 
-
-    public function postRemove() {
+    public function postRemove()
+    {
         if (isset($this->_params['ids'])) {
             $this->_model->removeDocumentMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Bỏ kích hoạt công thức nấu ăn thành công!']);
         }
+
         return response()->json(['msg' => 'Bỏ kích hoạt công thức nấu ăn không thành công!']);
     }
+
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postActive()
     {
         if (isset($this->_params['ids'])) {
             $this->_model->activeMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Kích hoạt công thức nấu ăn thành công!']);
         }
+
         return response()->json(['msg' => 'Kích hoạt công thức nấu ăn không thành công!']);
     }
 
-
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postFeatured()
     {
         if (isset($this->_params['ids'])) {
             $this->_model->featuredMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Thiết lập nổi bật Video thành công!']);
         }
+
         return response()->json(['msg' => 'Thiết lập nổi bật Video không thành công!']);
     }
 
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postUnFeatured()
     {
         if (isset($this->_params['ids'])) {
             $this->_model->unFeaturedMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Bỏ nổi bật Video thành công!']);
         }
+
         return response()->json(['msg' => 'Bỏ nổi bật Video không thành công!']);
     }
 
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postRecipe()
     {
         if (isset($this->_params['ids'])) {
             $this->_model->recipeMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Thiết lập sổ tay thành công!']);
         }
+
         return response()->json(['msg' => 'Thiết lập sổ tay không thành công!']);
     }
 
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postUnRecipe()
     {
         if (isset($this->_params['ids'])) {
             $this->_model->unRecipeMulti($this->_params['ids']);
+
             return response()->json(['msg' => 'Bỏ nổi sổ tay thành công!']);
         }
+
         return response()->json(['msg' => 'Bỏ sổ tay không thành công!']);
     }
 
     /**
      * Enter description here ...
+     *
      * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
+     *
      * @author HaLV
      */
     public function postUpdateOrdering()
@@ -442,44 +487,48 @@ class LogVidDocController extends MyController
 //             print_r($this->_params['ids']);
 //             echo '</pre>';
             $this->_model->updateOrdering($this->_params['ids']);
+
             return response()->json(['msg' => 'Cập nhật thứ tự thành công!']);
         }
+
         return response()->json(['msg' => 'Cập nhật thứ tự không thành công!']);
     }
 
     /**
-     * List staffs request
+     * List staffs request.
+     *
      * @return JSON
+     *
      * @author HaLV
      */
     public function getAjaxDataTopView(Request $request)
     {
         $filter = [
-        'offset' => $request->input('offset', 0),
-        'limit' => $request->input('limit', PAGE_LIST_COUNT),
-        'sort' => $request->input('sort', 'view_count'),
-        'order' => $request->input('view_count', 'desc'),
-        'search' => $request->input('search', ''),
+            'offset' => $request->input('offset', 0),
+            'limit' => $request->input('limit', PAGE_LIST_COUNT),
+            'sort' => $request->input('sort', 'view_count'),
+            'order' => $request->input('view_count', 'desc'),
+            'search' => $request->input('search', ''),
         ];
 
         $data = $this->_model->getAllVideosTopView($filter);
 
         return response()->json([
-                'total' => $data['total'],
-                'rows' => $data['data'],
-                ]);
+            'total' => $data['total'],
+            'rows' => $data['data'],
+        ]);
     }
 
-
     /**
-     * Retrieve and return the posts view/comments metrics
+     * Retrieve and return the posts view/comments metrics.
      *
      * @return JSON
      */
     public function getAjaxGetTopVideoByView()
     {
         $dataViews = $this->_model->getTopVideoByView();
-        return (json_encode($dataViews));
+
+        return json_encode($dataViews);
     }
 
     //Export file excel, csv

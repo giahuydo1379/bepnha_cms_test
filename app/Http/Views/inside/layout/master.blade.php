@@ -294,8 +294,8 @@
                                             </a>
                                         </li>
 
-                                        <li class="<?php echo (in_array($controllerName, array('logviddoc'))) ? 'active-link active open' : '' ?>">
-                                            <a href="/inside/logviddocs/show-all">
+                                        <li class="<?php echo (in_array($controllerName, array('logviews'))) ? 'active-link active open' : '' ?>">
+                                            <a href="/inside/logviews/show-all">
                                                 <i class="fa fa-table"></i>
                                                 <span class="menu-title">
                                                     <strong>Nhật kí</strong>

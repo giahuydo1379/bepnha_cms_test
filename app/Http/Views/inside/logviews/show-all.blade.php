@@ -65,11 +65,17 @@
                         </div>
                     </div>
                 </div>
+                <div id="table-toolbar1">
 
+                    <a href="#" data-toggle="modal" data-target="#modChart" data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
+                        class="btn btn-pink" > Show chart
+                    </a>
+
+                </div>
                 <div class="col-sm-6">
                     <table id="demo-custom-toolbar1" class="demo-add-niftycheck" data-toggle="table"
                            data-locale="vi-VN"
-                           data-toolbar="#table-toolbar"
+                           data-toolbar="#table-toolbar1"
                            data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data-list-date") !!}"
                            data-search="true"
                            data-show-refresh="true"
@@ -100,11 +106,18 @@
                     </table>
                 </div>
 
+                <div id="table-toolbar2">
 
+                    <button class="btn btn-pink" type="button" data-toggle="collapse" data-target="#cellTwoExp"
+                            aria-expanded="false" aria-controls="cellTwoExp">
+                        Show Chart
+                    </button>
+
+                </div>
                 <div class="col-sm-6">
                     <table id="demo-custom-toolbar2" class="demo-add-niftycheck" data-toggle="table"
                            data-locale="vi-VN"
-                           data-toolbar="#table-toolbar"
+                           data-toolbar="#table-toolbar2"
                            data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data-list") !!}"
                            data-search="true"
                            data-show-refresh="true"
@@ -137,10 +150,19 @@
                     </table>
                 </div>
 
+
+                <div id="table-toolbar3">
+
+                    <button class="btn btn-mint" type="button" data-toggle="collapse" data-target="#cellTwoExp"
+                            aria-expanded="false" aria-controls="cellTwoExp">
+                        Show Chart
+                    </button>
+
+                </div>
                 <div class="row">
                     <table id="demo-custom-toolbar3" class="demo-add-niftycheck" data-toggle="table"
                            data-locale="vi-VN"
-                           data-toolbar="#table-toolbar"
+                           data-toolbar="#table-toolbar3"
                            data-url="{!! url("/{$moduleName}/{$controllerName}/ajax-data") !!}"
                            data-search="true"
                            data-show-refresh="true"
@@ -167,6 +189,7 @@
 
 
                         </tr>
+
                         </thead>
 
                     </table>
@@ -211,16 +234,7 @@
 
     <script type="text/javascript">
         function detail(value, row, index, field) {
-                    {{--var data = {--}}
-                    {{--'_token': '{{ csrf_token() }}',--}}
-                    {{--'id': id,--}}
-                    {{--}--}}
 
-                    {{--var $this = $("#myModal");--}}
-                    {{--$.get('/post/detail_ajax/' + id, data, function (data) {--}}
-                    {{--$this.modal("show");--}}
-                    {{--$this.find("#nameCate").html(data);--}}
-                    {{--})--}}
 
             var url = "{{ url('/fdrive/server/detail/') }}";
             var statusBtn = [
@@ -230,11 +244,6 @@
 
             return [statusBtn].join('');
         }
-
-
-
-
-
 
 
         function formatRecipe(value, row, index) {
@@ -263,9 +272,6 @@
         }
 
 
-
-
-
         function queryParams(params) {
             params.status = $('#status_filter').val();
             params.from = $('#from_filter').val();
@@ -283,12 +289,9 @@
         $(document).ready(function () {
 
 
-
             var $table1 = $('#demo-custom-toolbar1');
             var $table2 = $('#demo-custom-toolbar2');
             var $table3 = $('#demo-custom-toolbar3');
-
-
 
 
             // select_filter
@@ -326,4 +329,6 @@
         });
 
     </script>
+
+
 @endsection

@@ -4,12 +4,11 @@ namespace App\Http\Models\Inside;
 
 use App;
 use App\MyCore\Inside\Models\DbTable;
-use App\Http\Requests\Inside\documentsRequest;
 use DB;
 use Session;
 use Illuminate\Http\Request;
 
-class LogVidDocs extends DbTable
+class LogViews extends DbTable
 {
     public $timestamps = false;
     public $primaryKey = 'id';
@@ -18,76 +17,68 @@ class LogVidDocs extends DbTable
     {
         parent::__construct($options);
 
-        $this->table = 'log_vid_doc';
+        $this->table = 'log_view';
     }
 
     /**
-     * List Type
+     * List Type.
+     *
      * @param array $filter
+     *
      * @return array
+     *
      * @author HaLV
      */
     public function getAllLogVidDocs($filter)
     {
-
         if ($filter['style'] == 2) {
-            $scope = ['log_vid_doc.*', 'documents.title', DB::raw('count(*) as total')];
-
+            $scope = ['log_view.*', 'documents.title', DB::raw('count(*) as total')];
 
             $sql = self::select($scope)
-                ->where('log_vid_doc.type', 2)
-                ->leftJoin('documents', 'documents.id', '=', 'log_vid_doc.vid_doc_id')
-                ->groupBy('log_vid_doc.date', 'documents.title');
-
-
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'documents.title');
         }
 
         if ($filter['style'] == 1) {
-            $scope = ['log_vid_doc.*', 'videos.name', DB::raw('count(*) as total')];
+            $scope = ['log_view.*', 'videos.name', DB::raw('count(*) as total')];
 
-
-//
             $sql = self::select($scope)
-                ->where('log_vid_doc.type', 1)
-                ->leftJoin('videos', 'videos.id', '=', 'log_vid_doc.vid_doc_id')
-                ->groupBy('log_vid_doc.date', 'videos.name');
-
+                ->where('log_view.type', 1)
+                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'videos.name');
         }
-
 
         if (!empty($keyword = $filter['search'])) {
             $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
+                $query->where('documents.title', 'LIKE', '%'.$keyword.'%');
+                $query->orWhere('videos.name', 'LIKE', '%'.$keyword.'%');
             });
         }
 
-//
-
-
         if (!empty($style = $filter['style'])) {
             if ($style == '1') {
-                $sql->where('log_vid_doc.type', 1);
+                $sql->where('log_view.type', 1);
             } else {
-                $sql->where('log_vid_doc.type', 2);
+                $sql->where('log_view.type', 2);
             }
         }
 
         if (!empty($filter['from']) && !empty($filter['to'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
-            $sql->whereBetween('log_vid_doc.date', [$from, $to]);
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
+            $sql->whereBetween('log_view.date', [$from, $to]);
         } elseif (!empty($filter['from'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $sql->whereDate('log_vid_doc.date', '>=', $from);
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $sql->whereDate('log_view.date', '>=', $from);
         } elseif (!empty($filter['to'])) {
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
-            $sql->whereDate('log_vid_doc.date', '<=', $to);
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
+            $sql->whereDate('log_view.date', '<=', $to);
         }
-        $total = DB::table( DB::raw("({$sql->toSql()}) as sub") )
+        $total = DB::table(DB::raw("({$sql->toSql()}) as sub"))
             ->mergeBindings($sql->getQuery()) // you need to get underlying Query Builder
             ->count();
-       // $total = $sql->count();
+        // $total = $sql->count();
 
         $data = $sql->skip($filter['offset'])
             ->take($filter['limit'])
@@ -97,140 +88,55 @@ class LogVidDocs extends DbTable
 
         return ['total' => $total, 'data' => $data];
     }
-
-
 
     public function getAllLogVidDocs2($filter)
     {
-
         if ($filter['style'] == 2) {
-            $scope = ['log_vid_doc.*', 'documents.title', DB::raw('count(*) as total')];
-
+            $scope = ['log_view.*', 'documents.title', DB::raw('count(*) as total')];
 
             $sql = self::select($scope)
-                ->where('log_vid_doc.type', 2)
-                ->leftJoin('documents', 'documents.id', '=', 'log_vid_doc.vid_doc_id')
-                ->groupBy( 'documents.title');
-
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('documents.title');
         }
 
         if ($filter['style'] == 1) {
-            $scope = ['log_vid_doc.*', 'videos.name', DB::raw('count(*) as total')];
-
-
+            $scope = ['log_view.*', 'videos.name', DB::raw('count(*) as total')];
 
             $sql = self::select($scope)
-                ->where('log_vid_doc.type', 1)
-                ->leftJoin('videos', 'videos.id', '=', 'log_vid_doc.vid_doc_id')
-                ->groupBy( 'videos.name');
-
+                ->where('log_view.type', 1)
+                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('videos.name');
         }
-
 
         if (!empty($keyword = $filter['search'])) {
             $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
+                $query->where('documents.title', 'LIKE', '%'.$keyword.'%');
+                $query->orWhere('videos.name', 'LIKE', '%'.$keyword.'%');
             });
         }
 
-
-
-
         if (!empty($style = $filter['style'])) {
             if ($style == '1') {
-                $sql->where('log_vid_doc.type', 1);
+                $sql->where('log_view.type', 1);
             } else {
-                $sql->where('log_vid_doc.type', 2);
+                $sql->where('log_view.type', 2);
             }
         }
 
         if (!empty($filter['from']) && !empty($filter['to'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
-            $sql->whereBetween('log_vid_doc.date', [$from, $to]);
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
+            $sql->whereBetween('log_view.date', [$from, $to]);
         } elseif (!empty($filter['from'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $sql->whereDate('log_vid_doc.date', '>=', $from);
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $sql->whereDate('log_view.date', '>=', $from);
         } elseif (!empty($filter['to'])) {
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
-            $sql->whereDate('log_vid_doc.date', '<=', $to);
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
+            $sql->whereDate('log_view.date', '<=', $to);
         }
 
-        $total = DB::table( DB::raw("({$sql->toSql()}) as sub") )
-            ->mergeBindings($sql->getQuery()) // you need to get underlying Query Builder
-            ->count();
-
-     //   $total = $sql->count();
-
-        $data = $sql->skip($filter['offset'])
-            ->take($filter['limit'])
-            ->orderBy($filter['sort'], $filter['order'])
-            ->get()
-            ->toArray();
-
-        return ['total' => $total, 'data' => $data];
-    }
-
-
-    public function getAllLogVidDocs3($filter)
-    {
-
-        if ($filter['style'] == 2) {
-            $scope = ['log_vid_doc.*', 'documents.title', DB::raw('count(*) as total')];
-
-
-            $sql = self::select($scope)
-                ->where('log_vid_doc.type', 2)
-                ->leftJoin('documents', 'documents.id', '=', 'log_vid_doc.vid_doc_id')
-                ->groupBy( 'log_vid_doc.date');
-
-        }
-
-        if ($filter['style'] == 1) {
-            $scope = ['log_vid_doc.*', 'videos.name', DB::raw('count(*) as total')];
-
-
-
-            $sql = self::select($scope)
-                ->where('log_vid_doc.type', 1)
-                ->leftJoin('videos', 'videos.id', '=', 'log_vid_doc.vid_doc_id')
-                ->groupBy( 'log_vid_doc.date');
-
-        }
-
-
-        if (!empty($keyword = $filter['search'])) {
-            $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
-            });
-        }
-
-
-
-
-        if (!empty($style = $filter['style'])) {
-            if ($style == '1') {
-                $sql->where('log_vid_doc.type', 1);
-            } else {
-                $sql->where('log_vid_doc.type', 2);
-            }
-        }
-
-        if (!empty($filter['from']) && !empty($filter['to'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
-            $sql->whereBetween('log_vid_doc.date', [$from, $to]);
-        } elseif (!empty($filter['from'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $sql->whereDate('log_vid_doc.date', '>=', $from);
-        } elseif (!empty($filter['to'])) {
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
-            $sql->whereDate('log_vid_doc.date', '<=', $to);
-        }
-
-        $total = DB::table( DB::raw("({$sql->toSql()}) as sub") )
+        $total = DB::table(DB::raw("({$sql->toSql()}) as sub"))
             ->mergeBindings($sql->getQuery()) // you need to get underlying Query Builder
             ->count();
 
@@ -245,17 +151,81 @@ class LogVidDocs extends DbTable
         return ['total' => $total, 'data' => $data];
     }
 
+    public function getAllLogVidDocs3($filter)
+    {
+        if ($filter['style'] == 2) {
+            $scope = ['log_view.*', 'documents.title', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date');
+        }
+
+        if ($filter['style'] == 1) {
+            $scope = ['log_view.*', 'videos.name', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 1)
+                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date');
+        }
+
+        if (!empty($keyword = $filter['search'])) {
+            $sql->where(function ($query) use ($keyword) {
+                $query->where('documents.title', 'LIKE', '%'.$keyword.'%');
+                $query->orWhere('videos.name', 'LIKE', '%'.$keyword.'%');
+            });
+        }
+
+        if (!empty($style = $filter['style'])) {
+            if ($style == '1') {
+                $sql->where('log_view.type', 1);
+            } else {
+                $sql->where('log_view.type', 2);
+            }
+        }
+
+        if (!empty($filter['from']) && !empty($filter['to'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
+            $sql->whereBetween('log_view.date', [$from, $to]);
+        } elseif (!empty($filter['from'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $sql->whereDate('log_view.date', '>=', $from);
+        } elseif (!empty($filter['to'])) {
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
+            $sql->whereDate('log_view.date', '<=', $to);
+        }
+
+        $total = DB::table(DB::raw("({$sql->toSql()}) as sub"))
+            ->mergeBindings($sql->getQuery()) // you need to get underlying Query Builder
+            ->count();
+
+        //   $total = $sql->count();
+
+        $data = $sql->skip($filter['offset'])
+            ->take($filter['limit'])
+            ->orderBy($filter['sort'], $filter['order'])
+            ->get()
+            ->toArray();
+
+        return ['total' => $total, 'data' => $data];
+    }
 
     /**
-     * List Type
+     * List Type.
+     *
      * @param array $filter
+     *
      * @return array
+     *
      * @author HaLV
      */
     public function getFeatureddocuments($filter)
     {
         $scope = [
-            'documents.*', 'categories.name as category_name'
+            'documents.*', 'categories.name as category_name',
         ];
 
         $sql = self::select($scope)
@@ -265,8 +235,8 @@ class LogVidDocs extends DbTable
 
         if (!empty($keyword = $filter['search'])) {
             $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('categories.name', 'LIKE', '%' . $keyword . '%');
+                $query->where('documents.title', 'LIKE', '%'.$keyword.'%');
+                $query->orWhere('categories.name', 'LIKE', '%'.$keyword.'%');
             });
         }
 
@@ -283,8 +253,8 @@ class LogVidDocs extends DbTable
         }
 
         if (!empty($filter['from']) && !empty($filter['to'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
             $sql->whereBetween('documents.date_created', [$from, $to]);
         }
 
@@ -300,15 +270,18 @@ class LogVidDocs extends DbTable
     }
 
     /**
-     * List Type
+     * List Type.
+     *
      * @param array $filter
+     *
      * @return array
+     *
      * @author HaLV
      */
     public function getRecipedocuments($filter)
     {
         $scope = [
-            'documents.*', 'categories.name as category_name'
+            'documents.*', 'categories.name as category_name',
         ];
 
         $sql = self::select($scope)
@@ -318,8 +291,8 @@ class LogVidDocs extends DbTable
 
         if (!empty($keyword = $filter['search'])) {
             $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.name', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('categories.name', 'LIKE', '%' . $keyword . '%');
+                $query->where('documents.name', 'LIKE', '%'.$keyword.'%');
+                $query->orWhere('categories.name', 'LIKE', '%'.$keyword.'%');
             });
         }
 
@@ -336,8 +309,8 @@ class LogVidDocs extends DbTable
         }
 
         if (!empty($filter['from']) && !empty($filter['to'])) {
-            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
-            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $from = date('Y-m-d', strtotime($filter['from'])).' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])).' 23:59:59';
             $sql->whereBetween('documents.date_created', [$from, $to]);
         }
 
@@ -353,25 +326,27 @@ class LogVidDocs extends DbTable
     }
 
     /**
-     * List Type
+     * List Type.
+     *
      * @param array $filter
+     *
      * @return array
+     *
      * @author HaLV
      */
     public function getAlldocumentsTopView($filter)
     {
         $scope = [
-            'documents.*', 'categories.name as category_name'
+            'documents.*', 'categories.name as category_name',
         ];
 
         $sql = self::select($scope)
             ->leftJoin('categories', 'categories.id', '=', 'documents.category_id');
 
-
         if (!empty($keyword = $filter['search'])) {
             $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.name', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('categories.name', 'LIKE', '%' . $keyword . '%');
+                $query->where('documents.name', 'LIKE', '%'.$keyword.'%');
+                $query->orWhere('categories.name', 'LIKE', '%'.$keyword.'%');
             });
         }
 
@@ -389,25 +364,27 @@ class LogVidDocs extends DbTable
 
     /**
      * Enter description here ...
+     *
      * @param VideoRequest $request
+     *
      * @return unknown
+     *
      * @author HaLV
      */
     public function add(Request $request)
     {
-        $date = date("Y/m/d");
+        $date = date('Y/m/d');
         $folder_image = 'documents';
 
         /**
-         * Lưu trong object
+         * Lưu trong object.
          */
-        $object = new documents;
+        $object = new documents();
 
         $data = $request->all();
 
         $isNewImage = $data['is_new_image'];
         //$isNewImage1 = $data['is_new_image1'];
-
 
         //$data['ingredients'] = $this->remove_empty($data['ingredients']);
 
@@ -433,7 +410,6 @@ class LogVidDocs extends DbTable
                 $object->save();
                 $videoId = $object->{$object->primaryKey};
 
-
                 if (isset($data['tags'])) {
                     foreach ($data['tags'] as $tagid) {
                         DB::table('tag_document')->insert(['document_id' => $videoId, 'tag_id' => $tagid]);
@@ -449,18 +425,18 @@ class LogVidDocs extends DbTable
             }
         });
 
-        /**
+        /*
          * Xử lý media
          */
         if ($isSuccess) {
             $dataMedia = array();
 
-            /**
+            /*
              * upload hinh
              */
             if ($isNewImage) {
-                $path = $_ENV['MEDIA_PATH_IMAGE'] . '/' . $folder_image . '/' . $date;
-                $dataMedia['image_location'] = $folder_image . '/' . $date . '/' . $data['image_name'];
+                $path = $_ENV['MEDIA_PATH_IMAGE'].'/'.$folder_image.'/'.$date;
+                $dataMedia['image_location'] = $folder_image.'/'.$date.'/'.$data['image_name'];
                 $this->saveFile($path, $data['image_name']);
             }
 
@@ -470,12 +446,11 @@ class LogVidDocs extends DbTable
                 $dataMedia['background_location'] = $folder_image . '/' . $date . '/' . $data['image_name1'];
                 $this->saveFile($path, $data['image_name1']);
             }
-            */
-
-            /**
-             * upload video
              */
 
+            /*
+             * upload video
+             */
 
             if (count($dataMedia)) {
                 documents::where('id', $isSuccess)->update($dataMedia);
@@ -487,24 +462,24 @@ class LogVidDocs extends DbTable
 
     /**
      * Enter description here ...
+     *
      * @param VideoRequest $request
-     * @param unknown $id
+     * @param unknown      $id
+     *
      * @return unknown
+     *
      * @author HaLV
      */
-
     public function edit(Request $request, $id)
     {
-
         /**
-         * Lưu trong object
+         * Lưu trong object.
          */
         $object = $this->findOrNew($id);
         $old_image = $object->image_location;
         $old_video = $object->video_location;
 
-
-        $date = date("Y/m/d");
+        $date = date('Y/m/d');
         $folder_image = 'documents';
 
         $data = $request->all();
@@ -521,7 +496,7 @@ class LogVidDocs extends DbTable
 
         if(!isset($data['is_for_you']))
             $data['is_for_you'] = 0;
-        */
+         */
 
         $isNewImage = $data['is_new_image'];
         //$isNewImage1 = $data['is_new_image1'];
@@ -563,22 +538,23 @@ class LogVidDocs extends DbTable
             } catch (Exception $ex) {
                 DB::rollback();
                 Session::flash('video-error-message', 'Chỉnh sửa thông tin Sổ tay thất bại. Vui lòng thử lại sau.');
+
                 return false;
             }
         });
 
-        /**
+        /*
          * Xử lý media
          */
         if ($isSuccess) {
             $dataMedia = array();
 
-            /**
+            /*
              * upload hinh
              */
             if ($isNewImage) {
-                $path = $_ENV['MEDIA_PATH_IMAGE'] . '/' . $folder_image . '/' . $date;
-                $dataMedia['image_location'] = $folder_image . '/' . $date . '/' . $data['image_name'];
+                $path = $_ENV['MEDIA_PATH_IMAGE'].'/'.$folder_image.'/'.$date;
+                $dataMedia['image_location'] = $folder_image.'/'.$date.'/'.$data['image_name'];
                 $this->delFile($_ENV['MEDIA_PATH_IMAGE'], $old_image);
                 $this->saveFile($path, $data['image_name']);
             }
@@ -589,24 +565,27 @@ class LogVidDocs extends DbTable
                 $dataMedia['background_location'] = $folder_image . '/' . $date . '/' . $data['image_name1'];
                 $this->saveFile($path, $data['image_name1']);
             }
-            */
-
-            /**
-             * upload video
              */
 
+            /*
+             * upload video
+             */
 
             if (count($dataMedia)) {
                 documents::where('id', $isSuccess)->update($dataMedia);
             }
         }
+
         return $id;
     }
 
     /**
      * Enter description here ...
+     *
      * @param unknown $data
+     *
      * @return unknown
+     *
      * @author HaLV
      */
     public function getTopVideoByView()
@@ -617,8 +596,11 @@ class LogVidDocs extends DbTable
 
     /**
      * Enter description here ...
+     *
      * @param unknown $data
+     *
      * @return unknown
+     *
      * @author HaLV
      */
     public function getDataExport()
@@ -628,8 +610,11 @@ class LogVidDocs extends DbTable
 
     /**
      * Enter description here ...
+     *
      * @param unknown $data
+     *
      * @return unknown
+     *
      * @author HaLV
      */
     public function getDataExportTopVideoByView()
