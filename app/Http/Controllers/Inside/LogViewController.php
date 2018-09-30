@@ -104,6 +104,36 @@ class LogViewController extends MyController
      *
      * @author HaLV
      */
+
+
+ public function getValue(Request $request)
+    {
+        
+        $filter = [
+            'offset' => $request->input('offset', 0),
+            'limit' => $request->input('limit', PAGE_LIST_COUNT),
+            'sort' => $request->input('sort', 'id'),
+            'order' => $request->input('order', 'asc'),
+            'search' => $request->input('search', ''),
+            'status' => $request->input('status', ''),
+            'from' => $request->input('from', ''),
+            'to' => $request->input('to', ''),
+            'style' => $request->input('style', ''),
+            'table'=>$request->input('table','')
+        ];
+        $data = $this->_model->getValue($filter);
+        // $data = $this->_model->getAllLogVidDocs2($filter);
+        $arr = [];
+        foreach($data['data'] as $v){
+            array_push($arr,$v['total']);
+        }
+        return response()->json([
+            'total' => $data['total'],
+            'average' => $arr,
+        ]);
+    }
+
+
     public function getAjaxData(Request $request)
     {
         $filter = [

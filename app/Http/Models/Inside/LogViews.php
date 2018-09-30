@@ -151,6 +151,47 @@ class LogViews extends DbTable
         return ['total' => $total, 'data' => $data];
     }
 
+
+
+
+
+public function getValue($filter)
+    {
+        if ($filter['style'] == 2) {
+            $scope = ['log_view.*', 'documents.title', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'documents.title');
+        }
+        
+        if ($filter['style'] == 1) {
+            $scope = ['log_view.*', 'videos.name', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 1)
+                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'videos.name');
+        }
+
+        
+        $total = DB::table(DB::raw("({$sql->toSql()}) as sub"))
+            ->mergeBindings($sql->getQuery()) // you need to get underlying Query Builder
+            ->count();
+        // $total = $sql->count();
+
+        $data = $sql->skip($filter['offset'])
+            ->take($filter['limit'])
+            ->orderBy($filter['sort'], $filter['order'])
+            ->get()
+            ->toArray();
+
+        return ['total' => $total, 'data' => $data];
+    }
+
+   
+
     public function getAllLogVidDocs3($filter)
     {
         if ($filter['style'] == 2) {
