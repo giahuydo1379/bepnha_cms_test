@@ -129,7 +129,8 @@ class LogViewController extends MyController
         }
         return response()->json([
             'total' => $data['total'],
-            'average' => $arr,
+            'average' => $data['data'], 
+            //'average' => $arr,
         ]);
     }
 
