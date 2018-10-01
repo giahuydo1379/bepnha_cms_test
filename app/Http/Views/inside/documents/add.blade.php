@@ -108,7 +108,7 @@
                                 <div class="col-sm-3" style="margin-left: -12px;">
                                     <div class="form-group">
                                         <label class="control-label"><strong>Thời gian làm</strong></label>
-                                        {!! Form::text("time_to_done", null, ['class' => 'form-control' , "id" => "time_to_done", "placeholder" => 'VD: 05:00' , "data-timepicker", 'required' => "required"]) !!}
+                                        {!! Form::text("time_to_done", null, ['class' => 'form-control' , "id" => "time_to_done", "placeholder" => 'VD: 05:00' , 'required' => "required"]) !!}
                                         <span class="help-block has-error">{!! $errors->first("time_to_done") !!}</span>
                                     </div>
                                 </div>

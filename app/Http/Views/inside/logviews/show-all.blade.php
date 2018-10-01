@@ -71,6 +71,8 @@
                         class="btn btn-pink" > Show chart
                     </a>
 
+                    <a href="{!! url("/{$moduleName}/logviews/export-total-view-by-date/xls") !!}"><button class="btn btn-success">Download Excel xls</button></a>
+
                 </div>
                 <div class="col-sm-6">
                     <table id="demo-custom-toolbar1" class="demo-add-niftycheck" data-toggle="table"
@@ -111,7 +113,7 @@
                    <a href="#" data-toggle="modal" data-target="#modChart" data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
                         class="btn btn-pink" > Show chart 2
                     </a>
-
+                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}"><button class="btn btn-success">Download Excel xls</button></a>
                 </div>
                 <div class="col-sm-6">
                     <table id="demo-custom-toolbar2" class="demo-add-niftycheck" data-toggle="table"
@@ -155,7 +157,7 @@
                    <a href="#" data-toggle="modal" data-target="#modChart" data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
                         class="btn btn-pink" > Show chart 3
                     </a>
-
+                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}"><button class="btn btn-success">Download Excel xls</button></a>
                 </div>
                 <div class="row">
                     <table id="demo-custom-toolbar3" class="demo-add-niftycheck" data-toggle="table"
@@ -254,7 +256,7 @@
 
             $('#modChart').on('shown.bs.modal',function(event){
                 var link = $(event.relatedTarget);
-                link.data('source',"70,13,20,90,44,12,30,30,30,10,5,0");
+               // link.data('source',"70,13,20,90,44,12,30,30,30,10,5,0");
                 // get data source
                 var source = link.attr('data-source').split(',');
                 // get title
@@ -263,7 +265,7 @@
                 //var table = $('#demo-custom-toolbar1');
                 var table = link.closest('.bootstrap-table').find('table.table');
                
-                console.log(table);
+              //  console.log(table);
                
                 var labels = [];
                 $('#'+table.attr('id')+'>thead>tr>th').each(function(index,value){

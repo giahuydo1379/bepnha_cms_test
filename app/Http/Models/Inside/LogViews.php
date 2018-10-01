@@ -658,7 +658,41 @@ public function getValue($filter)
      *
      * @author HaLV
      */
-    public function getDataExportTopVideoByView()
+    public function getDataExportTotalViewByDate($filter)
+    {
+
+//        if ($filter['style'] == 2) {
+            $scope = ['log_view.*', 'documents.title', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'documents.title');
+            return $sql::select('date', 'total')
+                ->orderBy('date', 'DESC')->skip(0)->take(50)->get()->toArray();
+//        }
+
+//        if ($filter['style'] == 1) {
+//            $scope = ['log_view.*', 'videos.name', DB::raw('count(*) as total')];
+//
+//            $sql = self::select($scope)
+//                ->where('log_view.type', 1)
+//                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+//                ->groupBy('log_view.date', 'videos.name');
+//            return $sql::select('date', 'total')
+//                ->orderBy('date', 'DESC')->skip(0)->take(50)->get()->toArray();
+//        }
+//
+//
+//        return logViews::select('date', 'total')
+//            ->orderBy('date', 'DESC')->skip(0)->take(50)->get()->toArray();
+    }
+    public function getDataExportTotalViewByItem()
+    {
+        return documents::select('name', 'duration', 'view_count')->where('disable', 0)
+            ->orderBy('view_count', 'DESC')->skip(0)->take(50)->get()->toArray();
+    }
+    public function getDataExportDetailViewByDate()
     {
         return documents::select('name', 'duration', 'view_count')->where('disable', 0)
             ->orderBy('view_count', 'DESC')->skip(0)->take(50)->get()->toArray();

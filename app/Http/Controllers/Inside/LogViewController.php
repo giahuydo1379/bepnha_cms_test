@@ -575,14 +575,14 @@ class LogViewController extends MyController
         })->export($type);
     }
 
-    public function getExportExcelTopView($type)
+    public function getExportTotalViewByDate($filter)
     {
-        $data = $this->_model->getDataExportTopVideoByView();
+        $data = $this->_model->getDataExportTotalViewByDate($filter);
 
-        Excel::create('report_video', function ($excel) use ($data) {
+        Excel::create('report', function ($excel) use ($data) {
             $excel->sheet('Sheet 1', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
-        })->export($type);
+        })->export($filter);
     }
 }
