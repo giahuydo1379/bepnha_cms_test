@@ -68,10 +68,13 @@
                 <div id="table-toolbar1">
 
                     <a href="#" data-toggle="modal" data-target="#modChart" data-source="" data-target-source="34"
-                        class="btn btn-pink" > Show chart
+                       class="btn btn-pink"> Show chart
                     </a>
 
-                    <a href="{!! url("/{$moduleName}/logviews/export-total-view-by-date/xls") !!}"><button class="btn btn-success">Download Excel xls</button></a>
+                    <a href="#" id="getstyle1" >
+                        <button class="btn btn-success">Download Excel xls</button>
+                    </a>
+
 
                 </div>
                 <div class="col-sm-6">
@@ -110,10 +113,14 @@
 
                 <div id="table-toolbar2">
 
-                   <a href="#" data-toggle="modal" data-target="#modChart" data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
-                        class="btn btn-pink" > Show chart 2
+                    <a href="#" data-toggle="modal" data-target="#modChart"
+                       data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
+                       class="btn btn-pink"> Show chart 2
                     </a>
-                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}"><button class="btn btn-success">Download Excel xls</button></a>
+
+                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}">
+                        <button class="btn btn-success">Download Excel xls</button>
+                    </a>
                 </div>
                 <div class="col-sm-6">
                     <table id="demo-custom-toolbar2" class="demo-add-niftycheck" data-toggle="table"
@@ -141,6 +148,7 @@
 
                             <th data-field="name" data-sortable="true">Tên Video</th>
 
+
                             <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
                             {{--<th data-field="vid_doc_id" data-align="center" data-formatter="detail">Xem chi tiết</th>--}}
 
@@ -154,10 +162,13 @@
 
                 <div id="table-toolbar3">
 
-                   <a href="#" data-toggle="modal" data-target="#modChart" data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
-                        class="btn btn-pink" > Show chart 3
+                    <a href="#" data-toggle="modal" data-target="#modChart"
+                       data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
+                       class="btn btn-pink"> Show chart 3
                     </a>
-                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}"><button class="btn btn-success">Download Excel xls</button></a>
+                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}">
+                        <button class="btn btn-success">Download Excel xls</button>
+                    </a>
                 </div>
                 <div class="row">
                     <table id="demo-custom-toolbar3" class="demo-add-niftycheck" data-toggle="table"
@@ -202,21 +213,22 @@
 
 
 
- <div class="modal fade" id="modChart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                        </button>
-                        <h4 class="modal-title" id="exampleModalLabel">Linechart</h4>
-                    </div>
-                    <div class="modal-body">
-                        <canvas id="canvas" width="568" height="300"></canvas>
-                    </div>
+    <div class="modal fade" id="modChart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Linechart</h4>
+                </div>
+                <div class="modal-body">
+                    <canvas id="canvas" width="568" height="300"></canvas>
                 </div>
             </div>
         </div>
+    </div>
 
 
     <link rel="stylesheet" type="text/css"
@@ -228,7 +240,7 @@
         }
     </style>
 
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
 
     <!--Bootstrap Table [ OPTIONAL ]-->
     <script src="/assets/inside/plugins/bootstrap-table/bootstrap-table.js"></script>
@@ -254,78 +266,70 @@
     <script type="text/javascript">
 
 
-            $('#modChart').on('shown.bs.modal',function(event){
-                var link = $(event.relatedTarget);
-               // link.data('source',"70,13,20,90,44,12,30,30,30,10,5,0");
-                // get data source
-                var source = link.attr('data-source').split(',');
-                // get title
-                var title = link.text();
-                // get labels
-                //var table = $('#demo-custom-toolbar1');
-                var table = link.closest('.bootstrap-table').find('table.table');
-               
-              //  console.log(table);
-               
-                var labels = [];
-                $('#'+table.attr('id')+'>thead>tr>th').each(function(index,value){
-                    // without first column
-                    if(index>0){labels.push($(value).text());}
-                });
-                // get target source
-                var target = [];
-                $.each(labels, function(index,value){
-                    target.push(link.attr('data-target-source'));
-                });
-                // Chart initialisieren
-                var modal = $(this);
-                var canvas = modal.find('.modal-body canvas');
-                modal.find('.modal-title').html(title);
-                var ctx = canvas[0].getContext("2d");
-                var chart = new Chart(ctx).Line({        
-                    responsive: true,
-                    labels: labels,
-                    datasets: [{
-                        fillColor: "rgba(151,187,205,0.2)",
-                        strokeColor: "rgba(151,187,205,1)",
-                        pointColor: "rgba(151,187,205,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: source
-                    },{
-                        fillColor: "rgba(220,220,220,0.2)",
-                        strokeColor: "#F7464A",
-                        pointColor: "#FF5A5E",
-                        pointStrokeColor: "#FF5A5E",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "red",
-                        data: target
-                    }]
-                },{});
-            }).on('hidden.bs.modal',function(event){
-                // reset canvas size
-                var modal = $(this);
-                var canvas = modal.find('.modal-body canvas');
-                canvas.attr('width','568px').attr('height','300px');
-                // destroy modal
-                $(this).data('bs.modal', null);
+        $('#modChart').on('shown.bs.modal', function (event) {
+            var link = $(event.relatedTarget);
+            // link.data('source',"70,13,20,90,44,12,30,30,30,10,5,0");
+            // get data source
+            var source = link.attr('data-source').split(',');
+            // get title
+            var title = link.text();
+            // get labels
+            //var table = $('#demo-custom-toolbar1');
+            var table = link.closest('.bootstrap-table').find('table.table');
+
+            //  console.log(table);
+
+            var labels = [];
+            $('#' + table.attr('id') + '>thead>tr>th').each(function (index, value) {
+                // without first column
+                if (index > 0) {
+                    labels.push($(value).text());
+                }
             });
+            // get target source
+            var target = [];
+            $.each(labels, function (index, value) {
+                target.push(link.attr('data-target-source'));
+            });
+            // Chart initialisieren
+            var modal = $(this);
+            var canvas = modal.find('.modal-body canvas');
+            modal.find('.modal-title').html(title);
+            var ctx = canvas[0].getContext("2d");
+            var chart = new Chart(ctx).Line({
+                responsive: true,
+                labels: labels,
+                datasets: [{
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: source
+                }, {
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "#F7464A",
+                    pointColor: "#FF5A5E",
+                    pointStrokeColor: "#FF5A5E",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "red",
+                    data: target
+                }]
+            }, {});
+        }).on('hidden.bs.modal', function (event) {
+            // reset canvas size
+            var modal = $(this);
+            var canvas = modal.find('.modal-body canvas');
+            canvas.attr('width', '568px').attr('height', '300px');
+            // destroy modal
+            $(this).data('bs.modal', null);
+        });
 
 
 
 
-        function detail(value, row, index, field) {
 
-
-            var url = "{{ url('/fdrive/server/detail/') }}";
-            var statusBtn = [
-                '<a class="btn btn-success btn-labeled" href="' + url + '/' + value + '"><i class="btn-label fa fa-th-large"></i>' + 'Detail' + '</a>'
-            ].join('');
-
-
-            return [statusBtn].join('');
-        }
 
 
         function formatRecipe(value, row, index) {
@@ -365,10 +369,12 @@
             params.is_like = $('#like_filter').val();
             params.is_for_you = $('#for_you_filter').val();
             params.style = $('#status_style').val();
+
             return params;
         }
 
         $(document).ready(function () {
+
 
 
             var $table1 = $('#demo-custom-toolbar1');
@@ -408,6 +414,9 @@
                 $table3.bootstrapTable('refresh');
                 return false;
             });
+
+
+
         });
 
     </script>

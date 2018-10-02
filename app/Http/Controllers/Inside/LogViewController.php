@@ -197,13 +197,18 @@ class LogViewController extends MyController
         ];
         session('video_filters', $filter);
 
+
         $data = $this->_model->getAllLogVidDocs3($filter);
 
         return response()->json([
             'total' => $data['total'],
             'rows' => $data['data'],
         ]);
+
+
+
     }
+
 
     /**
      * List staffs request.
@@ -212,326 +217,9 @@ class LogViewController extends MyController
      *
      * @author HaLV
      */
-    public function getAjaxDataFeatured(Request $request)
-    {
-        $filter = [
-            'offset' => $request->input('offset', 0),
-            'limit' => $request->input('limit', PAGE_LIST_COUNT),
-            'sort' => $request->input('sort', 'ordering'),
-            'order' => $request->input('order', 'asc'),
-            'search' => $request->input('search', ''),
-            'status' => $request->input('status', ''),
-            'from' => $request->input('from', ''),
-            'category' => $request->input('category', ''),
-            'to' => $request->input('to', ''),
-        ];
 
-        $data = $this->_model->getFeaturedVideos($filter);
 
-        return response()->json([
-            'total' => $data['total'],
-            'rows' => $data['data'],
-        ]);
-    }
 
-    /**
-     * List staffs request.
-     *
-     * @return JSON
-     *
-     * @author HaLV
-     */
-    public function getAjaxDataRecipe(Request $request)
-    {
-        $filter = [
-            'offset' => $request->input('offset', 0),
-            'limit' => $request->input('limit', PAGE_LIST_COUNT),
-            'sort' => $request->input('sort', 'id'),
-            'order' => $request->input('order', 'asc'),
-            'search' => $request->input('search', ''),
-            'status' => $request->input('status', ''),
-            'from' => $request->input('from', ''),
-            'category' => $request->input('category', ''),
-            'to' => $request->input('to', ''),
-        ];
-
-        $data = $this->_model->getRecipeVideos($filter);
-
-        return response()->json([
-            'total' => $data['total'],
-            'rows' => $data['data'],
-        ]);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return \Illuminate\View\View
-     *
-     * @author HaLV
-     */
-    public function getAdd()
-    {
-        $this->data['pcategories'] = array('' => '----- Chọn Category chính -----') + Categories::getOptionsCategoryByTypeDocuments(1);
-        $this->data['categories'] = array('' => '----- Chọn Category phụ -----') + Categories::getOptionsCategoryByTypeDocuments(2);
-        $this->data['types'] = array('' => '----- Chọn buổi -----') + VideoTypes::lists('name', 'id')->toArray();
-
-        $this->data['tags'] = DB::select('select id, title from tags where disable = 0');
-
-        return view("{$this->data['moduleName']}.{$this->data['controllerName']}.add", $this->buildDataView($this->data));
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @param StorageRequest $request
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postAdd(DocumentsRequest $request)
-    {
-        $last_id = $this->_model->add($request);
-
-        if ($last_id) {
-            return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/show-all");
-        }
-
-        return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/add");
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @param unknown $id
-     *
-     * @return \Illuminate\View\View
-     *
-     * @author HaLV
-     */
-    public function getEdit($id)
-    {
-        $this->data['pcategories'] = array('' => '----- Chọn Category chính -----') + Categories::getOptionsCategoryByTypeDocuments(1);
-        $this->data['categories'] = array('' => '----- Chọn Category phụ -----') + Categories::getOptionsCategoryByTypeDocuments(2);
-        $this->data['types'] = array('' => '----- Chọn buổi -----') + VideoTypes::lists('name', 'id')->toArray();
-
-        $ctags = DB::select('select tag_id from tag_video where video_id=?', [$id]);
-        $tags = $this->toKeyPairs('id', DB::select('select id, title from tags where disable = 0'));
-        foreach ($ctags as $v) {
-            $k = $v->tag_id;
-            if (isset($tags[$k])) {
-                $tags[$k]->checked = true;
-            }
-        }
-        $this->data['tags'] = $tags;
-
-        $object = $this->_model->findOrNew($id)->toArray();
-
-        if (empty($object)) {
-            throw new \Exception('Not found!');
-        }
-
-        $object['is_new_image'] = 0;
-
-        //$object['ingredients'] = json_decode($object['ingredients']);
-
-        $this->data['object'] = $object;
-
-        return view("{$this->data['moduleName']}.{$this->data['controllerName']}.edit", $this->buildDataView($this->data));
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @param JobLevelsRequest $request
-     * @param unknown          $id
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postEdit(DocumentsRequest $request, $id)
-    {
-        if ($this->_model->edit($request, $id)) {
-            return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/show-all");
-        }
-
-        return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/edit", $id);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @param unknown $id
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function getRemove($id)
-    {
-        if ($this->_model->remove($id)) {
-            return redirect("/{$this->data['moduleName']}/{$this->data['controllerName']}/show-all");
-        }
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    // public function postRemove()
-    // {
-    //     if (isset($this->_params['ids'])) {
-    //         $this->_model->removeVideoMulti($this->_params['ids']);
-    //         return response()->json(['msg' => 'Bỏ kích hoạt Video thành công!']);
-    //     }
-    //     return response()->json(['msg' => 'Bỏ kích hoạt Video không thành công!']);
-    // }
-
-    public function postChange()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->removeMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Đổi trạng thái thành công!']);
-        }
-
-        return response()->json(['msg' => 'Đổi trạng thái không thành công!']);
-    }
-
-    public function postRemove()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->removeDocumentMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Bỏ kích hoạt công thức nấu ăn thành công!']);
-        }
-
-        return response()->json(['msg' => 'Bỏ kích hoạt công thức nấu ăn không thành công!']);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postActive()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->activeMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Kích hoạt công thức nấu ăn thành công!']);
-        }
-
-        return response()->json(['msg' => 'Kích hoạt công thức nấu ăn không thành công!']);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postFeatured()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->featuredMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Thiết lập nổi bật Video thành công!']);
-        }
-
-        return response()->json(['msg' => 'Thiết lập nổi bật Video không thành công!']);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postUnFeatured()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->unFeaturedMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Bỏ nổi bật Video thành công!']);
-        }
-
-        return response()->json(['msg' => 'Bỏ nổi bật Video không thành công!']);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postRecipe()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->recipeMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Thiết lập sổ tay thành công!']);
-        }
-
-        return response()->json(['msg' => 'Thiết lập sổ tay không thành công!']);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postUnRecipe()
-    {
-        if (isset($this->_params['ids'])) {
-            $this->_model->unRecipeMulti($this->_params['ids']);
-
-            return response()->json(['msg' => 'Bỏ nổi sổ tay thành công!']);
-        }
-
-        return response()->json(['msg' => 'Bỏ sổ tay không thành công!']);
-    }
-
-    /**
-     * Enter description here ...
-     *
-     * @return Ambigous <\Illuminate\Routing\Redirector, \Illuminate\Http\RedirectResponse>
-     *
-     * @author HaLV
-     */
-    public function postUpdateOrdering()
-    {
-        if (isset($this->_params['ids'])) {
-//             echo '<pre>';
-//             print_r($this->_params['ids']);
-//             echo '</pre>';
-            $this->_model->updateOrdering($this->_params['ids']);
-
-            return response()->json(['msg' => 'Cập nhật thứ tự thành công!']);
-        }
-
-        return response()->json(['msg' => 'Cập nhật thứ tự không thành công!']);
-    }
-
-    /**
-     * List staffs request.
-     *
-     * @return JSON
-     *
-     * @author HaLV
-     */
     public function getAjaxDataTopView(Request $request)
     {
         $filter = [
@@ -575,14 +263,21 @@ class LogViewController extends MyController
         })->export($type);
     }
 
-    public function getExportTotalViewByDate($filter)
+    public function getExportTotalViewByDate(Request $request)
     {
+
+        $filter = [
+        'style' => $request->input('status_style', ''),
+    ];
+        session('video_filters', $filter);
+
         $data = $this->_model->getDataExportTotalViewByDate($filter);
 
-        Excel::create('report', function ($excel) use ($data) {
+
+        Excel::create('report-total-view-by-date', function ($excel) use ($data) {
             $excel->sheet('Sheet 1', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
-        })->export($filter);
+        })->export('xls');
     }
 }
