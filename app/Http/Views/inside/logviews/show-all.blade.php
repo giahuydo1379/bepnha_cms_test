@@ -72,7 +72,7 @@
                     </a>
 
                     <a href="#" id="getstyle1" >
-                        <button class="btn btn-success">Download Excel xls</button>
+                        <button class="btn btn-success" id="downloadId">Download Excel xls</button>
                     </a>
 
 
@@ -375,6 +375,14 @@
 
         $(document).ready(function () {
 
+            $('#downloadId').click(function () {
+                var statusStyle = $('#status_style').val();
+                var url = '{!! url("/{$moduleName}/logviews/export-total-view-by-date") !!}?style=' + statusStyle;
+                $.get(url, function (data) {
+
+                     console.log(data);
+                });
+            });
 
 
             var $table1 = $('#demo-custom-toolbar1');

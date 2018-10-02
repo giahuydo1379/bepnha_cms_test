@@ -267,9 +267,10 @@ class LogViewController extends MyController
     {
 
         $filter = [
-        'style' => $request->input('status_style', ''),
+        'style' => $request->input('style', ''),
     ];
-        session('video_filters', $filter);
+
+
 
         $data = $this->_model->getDataExportTotalViewByDate($filter);
 
