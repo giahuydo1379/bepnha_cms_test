@@ -349,15 +349,64 @@ class LogViews extends DbTable
         return $sql->toArray();
     }
 
-    public function getDataExportTotalViewByItem()
+    public function getDataExportTotalViewByItem($filter)
     {
-        return documents::select('name', 'duration', 'view_count')->where('disable', 0)
-            ->orderBy('view_count', 'DESC')->skip(0)->take(50)->get()->toArray();
+       if ($filter['style']==2){
+           $scope = ['documents.title', DB::raw('count(*) as total')];
+           $sql = self::select($scope)
+               ->where('log_view.type', 2)
+               ->leftJoin('documents', 'documents.id', '=' , 'log_view.vid_doc_id')
+               ->groupBy('documents.title')
+               ->orderBy('documents.title', 'asc')->skip(0)->take(50)->get();
+       }
+
+       if ($filter['style'] == 1){
+           $scope = ['videos.name', DB::raw('count(*) as total')];
+           $sql = self::select($scope)
+               ->where('log_view.type', 1)
+               ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+               ->groupBy('videos.name')
+               ->orderBy('videos.name', 'asc')->skip(0)->take(50)->get();
+       }
+        if (!empty($style = $filter['style'])) {
+            if ($style == '1') {
+                $sql->where('log_view.type', 1);
+            } else {
+                $sql->where('log_view.type', 2);
+            }
+        }
+       return $sql->toArray();
     }
 
-    public function getDataExportDetailViewByDate()
+    public function getDataExportTotalViewByDateItem($filter)
     {
-        return documents::select('name', 'duration', 'view_count')->where('disable', 0)
-            ->orderBy('view_count', 'DESC')->skip(0)->take(50)->get()->toArray();
+        if ($filter['style'] == 2) {
+            $scope = ['log_view.date', 'documents.title', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'documents.title')
+                ->orderBy('log_view.date', 'asc')->skip(0)->take(50)->get();
+        }
+
+        if ($filter['style'] == 1) {
+            $scope = ['log_view.date', 'videos.name', DB::raw('count(*) as total')];
+
+            $sql = self::select($scope)
+                ->where('log_view.type', 1)
+                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('log_view.date', 'videos.name')
+                ->orderBy('log_view.date', 'asc')->skip(0)->take(50)->get();
+        }
+        if (!empty($style = $filter['style'])) {
+            if ($style == '1') {
+                $sql->where('log_view.type', 1);
+            } else {
+                $sql->where('log_view.type', 2);
+            }
+        }
+        return $sql->toArray();
     }
+
 }

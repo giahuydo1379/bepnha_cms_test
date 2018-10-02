@@ -71,7 +71,7 @@
                        class="btn btn-pink"> Show chart
                     </a>
 
-                    <a href="#" id="getstyle1" >
+                    <a href="#" >
                         <button class="btn btn-success" id="downloadId">Download Excel xls</button>
                     </a>
 
@@ -118,8 +118,8 @@
                        class="btn btn-pink"> Show chart 2
                     </a>
 
-                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}">
-                        <button class="btn btn-success">Download Excel xls</button>
+                    <a href="#" >
+                        <button class="btn btn-success" id="downloadId2">Download Excel xls</button>
                     </a>
                 </div>
                 <div class="col-sm-6">
@@ -166,8 +166,8 @@
                        data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
                        class="btn btn-pink"> Show chart 3
                     </a>
-                    <a href="{!! url("/{$moduleName}/videos/export-excel-top-view/xls") !!}">
-                        <button class="btn btn-success">Download Excel xls</button>
+                    <a href="#" >
+                        <button class="btn btn-success" id="downloadId3">Download Excel xls</button>
                     </a>
                 </div>
                 <div class="row">
@@ -381,6 +381,22 @@
                 $.get(url, function (data) {
 
                      console.log(data);
+                });
+            });
+            $('#downloadId2').click(function () {
+                var statusStyle = $('#status_style').val();
+                var url = '{!! url("/{$moduleName}/logviews/export-total-view-by-item") !!}?style=' + statusStyle;
+                $.get(url, function (data) {
+
+                    console.log(data);
+                });
+            });
+            $('#downloadId3').click(function () {
+                var statusStyle = $('#status_style').val();
+                var url = '{!! url("/{$moduleName}/logviews/export-total-view-by-date-item") !!}?style=' + statusStyle;
+                $.get(url, function (data) {
+
+                    console.log(data);
                 });
             });
 

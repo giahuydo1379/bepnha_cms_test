@@ -270,12 +270,42 @@ class LogViewController extends MyController
         'style' => $request->input('style', ''),
     ];
 
-
-
         $data = $this->_model->getDataExportTotalViewByDate($filter);
 
 
         Excel::create('report-total-view-by-date', function ($excel) use ($data) {
+            $excel->sheet('Sheet 1', function ($sheet) use ($data) {
+                $sheet->fromArray($data);
+            });
+        })->export('xls');
+    }
+    public function getExportTotalViewByItem(Request $request)
+    {
+
+        $filter = [
+            'style' => $request->input('style', ''),
+        ];
+
+        $data = $this->_model->getDataExportTotalViewByItem($filter);
+
+
+        Excel::create('report-total-view-by-item', function ($excel) use ($data) {
+            $excel->sheet('Sheet 1', function ($sheet) use ($data) {
+                $sheet->fromArray($data);
+            });
+        })->export('xls');
+    }
+    public function getExportTotalViewByDateItem(Request $request)
+    {
+
+        $filter = [
+            'style' => $request->input('style', ''),
+        ];
+
+        $data = $this->_model->getDataExportTotalViewByDateItem($filter);
+
+
+        Excel::create('report-total-view-by-date-item', function ($excel) use ($data) {
             $excel->sheet('Sheet 1', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
