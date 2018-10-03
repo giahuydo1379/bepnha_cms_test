@@ -49,7 +49,7 @@ class LogViewController extends MyController
      */
     public function getShowAll()
     {
-        $this->data['filters'] = session('video_filters', [
+        $this->data['filters'] =  [
             'offset' => 0,
             'limit' => PAGE_LIST_COUNT,
             'sort' => 'id',
@@ -59,7 +59,7 @@ class LogViewController extends MyController
             'from' => '',
             'to' => '',
             'style' => '1',
-        ]);
+        ];
 
         $this->data['status'] = ['' => '- lọc theo trạng thái -'] + $this->_model->getOptionsStatus();
         $this->data['status_style'] = ['' => '-- lọc theo dạng bài --'] + $this->_model->getOptionsStyle();
@@ -106,9 +106,9 @@ class LogViewController extends MyController
      */
 
 
- public function getValue(Request $request)
+    public function getValue(Request $request)
     {
-        
+
         $filter = [
             'offset' => $request->input('offset', 0),
             'limit' => $request->input('limit', PAGE_LIST_COUNT),
@@ -119,23 +119,23 @@ class LogViewController extends MyController
             'from' => $request->input('from', ''),
             'to' => $request->input('to', ''),
             'style' => $request->input('style', ''),
-            'table'=>$request->input('table','')
+            'table' => $request->input('table', '')
         ];
         $data = $this->_model->getValue($filter);
         // $data = $this->_model->getAllLogVidDocs2($filter);
         $arr = [];
-        foreach($data['data'] as $v){
-            array_push($arr,$v['total']);
+        foreach ($data['data'] as $v) {
+            array_push($arr, $v['total']);
         }
         return response()->json([
             'total' => $data['total'],
-            'average' => $data['data'], 
+            'average' => $data['data'],
             //'average' => $arr,
         ]);
     }
 
 
-    public function getAjaxData(Request $request)
+    public function getAjaxDataListDate(Request $request)
     {
         $filter = [
             'offset' => $request->input('offset', 0),
@@ -148,15 +148,16 @@ class LogViewController extends MyController
             'to' => $request->input('to', ''),
             'style' => $request->input('style', ''),
         ];
-        session('video_filters', $filter);
 
-        $data = $this->_model->getAllLogVidDocs($filter);
-        // $data = $this->_model->getAllLogVidDocs2($filter);
+
+        $data = $this->_model->getAllLogVidDocs3($filter);
 
         return response()->json([
             'total' => $data['total'],
             'rows' => $data['data'],
         ]);
+
+
     }
 
     public function getAjaxDataList(Request $request)
@@ -172,7 +173,7 @@ class LogViewController extends MyController
             'to' => $request->input('to', ''),
             'style' => $request->input('style', ''),
         ];
-        session('video_filters', $filter);
+
 
         $data = $this->_model->getAllLogVidDocs2($filter);
 
@@ -182,7 +183,10 @@ class LogViewController extends MyController
         ]);
     }
 
-    public function getAjaxDataListDate(Request $request)
+
+
+
+    public function getAjaxData(Request $request)
     {
         $filter = [
             'offset' => $request->input('offset', 0),
@@ -195,29 +199,16 @@ class LogViewController extends MyController
             'to' => $request->input('to', ''),
             'style' => $request->input('style', ''),
         ];
-        session('video_filters', $filter);
 
 
-        $data = $this->_model->getAllLogVidDocs3($filter);
+        $data = $this->_model->getAllLogVidDocs($filter);
+
 
         return response()->json([
             'total' => $data['total'],
             'rows' => $data['data'],
         ]);
-
-
-
     }
-
-
-    /**
-     * List staffs request.
-     *
-     * @return JSON
-     *
-     * @author HaLV
-     */
-
 
 
     public function getAjaxDataTopView(Request $request)
@@ -267,39 +258,47 @@ class LogViewController extends MyController
     {
 
         $filter = [
-        'style' => $request->input('style', ''),
-    ];
+            'style' => $request->input('style', ''),
+            'from' => $request->input('from', ''),
+            'to' => $request->input('to', ''),
+        ];
 
         $data = $this->_model->getDataExportTotalViewByDate($filter);
 
 
-        Excel::create('report-total-view-by-date', function ($excel) use ($data) {
+        return Excel::create('report-total-view-by-date', function ($excel) use ($data) {
             $excel->sheet('Sheet 1', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
-        })->export('xls');
+        })->download('xls');
     }
+
     public function getExportTotalViewByItem(Request $request)
     {
 
         $filter = [
             'style' => $request->input('style', ''),
+            'from' => $request->input('from', ''),
+            'to' => $request->input('to', ''),
         ];
 
         $data = $this->_model->getDataExportTotalViewByItem($filter);
 
 
-        Excel::create('report-total-view-by-item', function ($excel) use ($data) {
+        return Excel::create('report-total-view-by-item', function ($excel) use ($data) {
             $excel->sheet('Sheet 1', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
             });
         })->export('xls');
     }
+
     public function getExportTotalViewByDateItem(Request $request)
     {
 
         $filter = [
             'style' => $request->input('style', ''),
+            'from' => $request->input('from', ''),
+            'to' => $request->input('to', ''),
         ];
 
         $data = $this->_model->getDataExportTotalViewByDateItem($filter);

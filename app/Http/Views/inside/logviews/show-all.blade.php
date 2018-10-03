@@ -30,6 +30,8 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Thống kê lượt xem</h3>
             </div>
+            <a href="{!! url("/{$moduleName}/{$controllerName}/show-tag") !!}"
+               class="btn btn-info btn-labeled fa fa-info-circle">Báo cáo theo tag</a>
             <div class="panel-body">
                 <div class="row">
                     <div class="row">
@@ -39,6 +41,17 @@
                                 'class' => 'custom_filter',
                                 'data-placeholder' => 'Lọc theo dạng bài']) !!}
                         </div>
+
+
+                        {{--<div class="col-sm-2">--}}
+                        {{--<div class="form-group">--}}
+                        {{--<div class="input-daterange input-group" id="date_from">--}}
+                        {{--<span class="input-group-addon">Chọn ngày</span>--}}
+                        {{--<input type="text" class="form-control" id="from_filter"--}}
+                        {{--value="{{ $filters['from'] }}" placeholder="----- Chọn ngày -----"/>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
 
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -71,7 +84,7 @@
                        class="btn btn-pink"> Show chart
                     </a>
 
-                    <a href="#" >
+                    <a href="#">
                         <button class="btn btn-success" id="downloadId">Download Excel xls</button>
                     </a>
 
@@ -90,7 +103,7 @@
                            data-side-pagination="server"
                            data-page-size="{{ PAGE_LIST_COUNT }}"
                            data-query-params="queryParams"
-                           data-cookie="true"
+                           {{--data-cookie="true"--}}
                            data-cookie-id-table="inside-video-show-all"
                            data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
                     >
@@ -99,7 +112,7 @@
                             <th data-field="check_id" data-checkbox="true">ID</th>
 
 
-                            <th data-field="date" data-sortable="true">Ngày</th>
+                            <th data-class='a' data-field="date" data-sortable="true">Ngày</th>
 
                             <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
                             {{--<th data-field="vid_doc_id" data-align="center" data-formatter="detail">Xem chi tiết</th>--}}
@@ -118,7 +131,7 @@
                        class="btn btn-pink"> Show chart 2
                     </a>
 
-                    <a href="#" >
+                    <a href="#">
                         <button class="btn btn-success" id="downloadId2">Download Excel xls</button>
                     </a>
                 </div>
@@ -135,7 +148,7 @@
                            data-side-pagination="server"
                            data-page-size="{{ PAGE_LIST_COUNT }}"
                            data-query-params="queryParams"
-                           data-cookie="true"
+                           {{--data-cookie="true"--}}
                            data-cookie-id-table="inside-video-show-all"
                            data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
                     >
@@ -144,9 +157,9 @@
                             <th data-field="check_id" data-checkbox="true">ID</th>
 
 
-                            <th data-field="title" data-sortable="true">Tên Công thức nấu ăn</th>
+                            <th data-field="title"  data-sortable="true" >Tên Công thức nấu ăn</th>
 
-                            <th data-field="name" data-sortable="true">Tên Video</th>
+                            <th  data-field="name" data-sortable="true" >Tên Video</th>
 
 
                             <th data-field="total" data-sortable="true"> Tổng lượt xem</th>
@@ -166,7 +179,7 @@
                        data-source="70,13,20,90,44,12,30,30,30,10,5,0" data-target-source="34"
                        class="btn btn-pink"> Show chart 3
                     </a>
-                    <a href="#" >
+                    <a href="#">
                         <button class="btn btn-success" id="downloadId3">Download Excel xls</button>
                     </a>
                 </div>
@@ -183,7 +196,7 @@
                            data-side-pagination="server"
                            data-page-size="{{ PAGE_LIST_COUNT }}"
                            data-query-params="queryParams"
-                           data-cookie="true"
+                           {{--data-cookie="true"--}}
                            data-cookie-id-table="inside-video-show-all"
                            data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
                     >
@@ -270,9 +283,12 @@
             var link = $(event.relatedTarget);
             // link.data('source',"70,13,20,90,44,12,30,30,30,10,5,0");
             // get data source
+            // console.log(link);
             var source = link.attr('data-source').split(',');
+
             // get title
             var title = link.text();
+
             // get labels
             //var table = $('#demo-custom-toolbar1');
             var table = link.closest('.bootstrap-table').find('table.table');
@@ -280,12 +296,13 @@
             //  console.log(table);
 
             var labels = [];
-            $('#' + table.attr('id') + '>thead>tr>th').each(function (index, value) {
+            $('#' + table.attr('id') + '>tbody>tr>td.a').each(function (index, value) {
                 // without first column
                 if (index > 0) {
                     labels.push($(value).text());
                 }
             });
+            console.log(labels);
             // get target source
             var target = [];
             $.each(labels, function (index, value) {
@@ -327,16 +344,13 @@
         });
 
 
-
-
-
-
-
         function formatRecipe(value, row, index) {
             return value === 1 ?
                 '<span class="label label-sm label-success">Công thức nấu ăn</span>' :
                 '<span class="label label-sm label-danger">Không công thức nấu ăn </span>';
         }
+
+
 
         function formatGroupName(value, row, index) {
             var colors = {
@@ -378,26 +392,39 @@
             $('#downloadId').click(function () {
                 var statusStyle = $('#status_style').val();
                 var url = '{!! url("/{$moduleName}/logviews/export-total-view-by-date") !!}?style=' + statusStyle;
-                $.get(url, function (data) {
+                window.location = url;
+                // $.get(url, function (data) {
+                //     console.log(data);
+                // });
 
-                     console.log(data);
-                });
+
+                // $.ajax({
+                //     url: url ,
+                //
+                //     type: 'get',
+                //     success: function (data) {
+                //         console.log(data);
+                //     },
+                //
+                // });
             });
             $('#downloadId2').click(function () {
                 var statusStyle = $('#status_style').val();
                 var url = '{!! url("/{$moduleName}/logviews/export-total-view-by-item") !!}?style=' + statusStyle;
-                $.get(url, function (data) {
-
-                    console.log(data);
-                });
+                // $.get(url, function (data) {
+                //
+                //     console.log(data);
+                // });
+                window.location = url;
             });
             $('#downloadId3').click(function () {
                 var statusStyle = $('#status_style').val();
                 var url = '{!! url("/{$moduleName}/logviews/export-total-view-by-date-item") !!}?style=' + statusStyle;
-                $.get(url, function (data) {
-
-                    console.log(data);
-                });
+                // $.get(url, function (data) {
+                //
+                //     console.log(data);
+                // });
+                window.location = url;
             });
 
 
@@ -438,7 +465,6 @@
                 $table3.bootstrapTable('refresh');
                 return false;
             });
-
 
 
         });

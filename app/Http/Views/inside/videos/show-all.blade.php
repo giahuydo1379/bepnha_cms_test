@@ -94,7 +94,7 @@
                     data-side-pagination="server"
                     data-page-size="{{ PAGE_LIST_COUNT }}"
                     data-query-params="queryParams"
-                    data-cookie="true"
+                    {{--data-cookie="true"--}}
                     data-cookie-id-table="inside-video-show-all"
                     data-cookie-expire="{!! config('params.bootstrapTable.extension.cookie.cookieExpire') !!}"
                     >

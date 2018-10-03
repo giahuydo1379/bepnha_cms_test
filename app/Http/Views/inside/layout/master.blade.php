@@ -241,7 +241,7 @@
                                             <a href="/">
                                                 <i class="fa fa-dashboard"></i>
                                                 <span class="menu-title">
-                                                    <strong>Dashboard</strong>
+                                                    <strong>Top View</strong>
                                                 </span>
                                             </a>
                                         </li>

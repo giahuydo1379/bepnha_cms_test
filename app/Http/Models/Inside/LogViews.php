@@ -48,12 +48,22 @@ class LogViews extends DbTable
                 ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
                 ->groupBy('log_view.date', 'videos.name');
         }
+        if ($filter['style'] == 1) {
+            if (!empty($keyword = $filter['search'])) {
+                $sql->where(function ($query) use ($keyword) {
+                    $query->where('log_view.date', 'LIKE', '%' . $keyword . '%');
+                    $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
+                });
+            }
+        }
 
-        if (!empty($keyword = $filter['search'])) {
-            $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
-            });
+        if ($filter['style'] == 2) {
+            if (!empty($keyword = $filter['search'])) {
+                $sql->where(function ($query) use ($keyword) {
+                    $query->where('log_view.date', 'LIKE', '%' . $keyword . '%');
+                    $query->orWhere('documents.title', 'LIKE', '%' . $keyword . '%');
+                });
+            }
         }
 
         if (!empty($style = $filter['style'])) {
@@ -108,12 +118,21 @@ class LogViews extends DbTable
                 ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
                 ->groupBy('videos.name');
         }
-
-        if (!empty($keyword = $filter['search'])) {
-            $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
-            });
+        if ($filter['style'] == 1) {
+            if (!empty($keyword = $filter['search'])) {
+                $sql->where(function ($query) use ($keyword) {
+                    //  $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
+                    $query->where('videos.name', 'LIKE', '%' . $keyword . '%');
+                });
+            }
+        }
+        if ($filter['style'] == 2) {
+            if (!empty($keyword = $filter['search'])) {
+                $sql->where(function ($query) use ($keyword) {
+                    $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
+                    // $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
+                });
+            }
         }
 
         if (!empty($style = $filter['style'])) {
@@ -208,12 +227,15 @@ class LogViews extends DbTable
                 ->groupBy('log_view.date');
         }
 
-        if (!empty($keyword = $filter['search'])) {
-            $sql->where(function ($query) use ($keyword) {
-                $query->where('documents.title', 'LIKE', '%' . $keyword . '%');
-                $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
-            });
-        }
+
+
+            if (!empty($keyword = $filter['search'])) {
+                $sql->where(function ($query) use ($keyword) {
+                       $query->where('log_view.date', 'LIKE', '%' . $keyword . '%');
+                 //   $query->orWhere('videos.name', 'LIKE', '%' . $keyword . '%');
+                });
+            }
+
 
         if (!empty($style = $filter['style'])) {
             if ($style == '1') {
@@ -222,6 +244,11 @@ class LogViews extends DbTable
                 $sql->where('log_view.type', 2);
             }
         }
+
+//        if (!empty($filter['date'])) {
+//            $date = date('Y-m-d', strotime)
+//        }
+
 
         if (!empty($filter['from']) && !empty($filter['to'])) {
             $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
@@ -322,7 +349,7 @@ class LogViews extends DbTable
         if ($filter['style'] == 2) {
             $scope = ['log_view.date', DB::raw('count(*) as total')];
 
-           $sql = self::select($scope)
+            $sql = self::select($scope)
                 ->where('log_view.type', 2)
                 ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
                 ->groupBy('log_view.date')
@@ -330,7 +357,7 @@ class LogViews extends DbTable
         }
 
         if ($filter['style'] == 1) {
-            $scope = ['log_view.date',  DB::raw('count(*) as total')];
+            $scope = ['log_view.date', DB::raw('count(*) as total')];
 
             $sql = self::select($scope)
                 ->where('log_view.type', 1)
@@ -346,28 +373,40 @@ class LogViews extends DbTable
             }
         }
 
+        if (!empty($filter['from']) && !empty($filter['to'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $sql->whereBetween('log_view.date', [$from, $to]);
+        } elseif (!empty($filter['from'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
+            $sql->whereDate('log_view.date', '>=', $from);
+        } elseif (!empty($filter['to'])) {
+            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $sql->whereDate('log_view.date', '<=', $to);
+        }
+
         return $sql->toArray();
     }
 
     public function getDataExportTotalViewByItem($filter)
     {
-       if ($filter['style']==2){
-           $scope = ['documents.title', DB::raw('count(*) as total')];
-           $sql = self::select($scope)
-               ->where('log_view.type', 2)
-               ->leftJoin('documents', 'documents.id', '=' , 'log_view.vid_doc_id')
-               ->groupBy('documents.title')
-               ->orderBy('documents.title', 'asc')->skip(0)->take(50)->get();
-       }
+        if ($filter['style'] == 2) {
+            $scope = ['documents.title', DB::raw('count(*) as total')];
+            $sql = self::select($scope)
+                ->where('log_view.type', 2)
+                ->leftJoin('documents', 'documents.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('documents.title')
+                ->orderBy('documents.title', 'asc')->skip(0)->take(50)->get();
+        }
 
-       if ($filter['style'] == 1){
-           $scope = ['videos.name', DB::raw('count(*) as total')];
-           $sql = self::select($scope)
-               ->where('log_view.type', 1)
-               ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
-               ->groupBy('videos.name')
-               ->orderBy('videos.name', 'asc')->skip(0)->take(50)->get();
-       }
+        if ($filter['style'] == 1) {
+            $scope = ['videos.name', DB::raw('count(*) as total')];
+            $sql = self::select($scope)
+                ->where('log_view.type', 1)
+                ->leftJoin('videos', 'videos.id', '=', 'log_view.vid_doc_id')
+                ->groupBy('videos.name')
+                ->orderBy('videos.name', 'asc')->skip(0)->take(50)->get();
+        }
         if (!empty($style = $filter['style'])) {
             if ($style == '1') {
                 $sql->where('log_view.type', 1);
@@ -375,7 +414,18 @@ class LogViews extends DbTable
                 $sql->where('log_view.type', 2);
             }
         }
-       return $sql->toArray();
+        if (!empty($filter['from']) && !empty($filter['to'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $sql->whereBetween('log_view.date', [$from, $to]);
+        } elseif (!empty($filter['from'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
+            $sql->whereDate('log_view.date', '>=', $from);
+        } elseif (!empty($filter['to'])) {
+            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $sql->whereDate('log_view.date', '<=', $to);
+        }
+        return $sql->toArray();
     }
 
     public function getDataExportTotalViewByDateItem($filter)
@@ -405,6 +455,17 @@ class LogViews extends DbTable
             } else {
                 $sql->where('log_view.type', 2);
             }
+        }
+        if (!empty($filter['from']) && !empty($filter['to'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
+            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $sql->whereBetween('log_view.date', [$from, $to]);
+        } elseif (!empty($filter['from'])) {
+            $from = date('Y-m-d', strtotime($filter['from'])) . ' 00:00:00';
+            $sql->whereDate('log_view.date', '>=', $from);
+        } elseif (!empty($filter['to'])) {
+            $to = date('Y-m-d', strtotime($filter['to'])) . ' 23:59:59';
+            $sql->whereDate('log_view.date', '<=', $to);
         }
         return $sql->toArray();
     }
